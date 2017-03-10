@@ -8,7 +8,10 @@ QML_IMPORT_PATH =
 
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
-    Tag.cpp
+    Tag.cpp \
+    Xml_Dom.cpp \
+    GestionnaireDesTags.cpp \
+    Navigation_Repertoire.cpp
 
 # Installation path
 # target.path =
@@ -18,4 +21,7 @@ include(qtquick1applicationviewer/qtquick1applicationviewer.pri)
 qtcAddDeployment()
 
 HEADERS += \
-    Tag.h
+    Tag.hpp \
+    Xml_Dom.hpp \
+    GestionnaireDesTags.hpp \
+    Navigation_Repertoire.hpp

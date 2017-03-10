@@ -1,7 +1,7 @@
 import QtQuick 1.1
 
 Row {
-    anchors.fill: parent
+    anchors.left: parent
     Rectangle {
         border.width : 1
         border.color : "black"

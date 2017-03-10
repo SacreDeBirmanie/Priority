@@ -1,5 +1,6 @@
 #include "qtquick1applicationviewer.h"
 #include <QApplication>
+#include <QtXml/>
 
 int main(int argc, char *argv[])
 {

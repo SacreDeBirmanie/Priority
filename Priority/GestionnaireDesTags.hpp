@@ -6,16 +6,16 @@
 class GestionnaireDesTags{
     private :
         QList<Tag*> lestags;
-        void tagerUnFichier(QString fich);
         void ajouterTagByString(QString nom);
-        void supprimerTag(Tag* tag);
+        void supprimerTagListe(Tag* tag);
 
     public :
         GestionnaireDesTags();
         void recupererLesFichiers(Tag* tag);
         void recupererLesTags();
         void creerUnNouveauTag(QString nom);
-        void supprimerUnTag(Tag *tag);
+        void supprimerTag(Tag *tag);
+        void tagger(Tag* tag, QString nom_fichier);
 };
 
 

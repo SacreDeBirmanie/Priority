@@ -65,7 +65,7 @@ void GestionnaireEnregistrementTag::tagger(QString nom_fich){
 GestionnaireEnregistrementTag::~GestionnaireEnregistrementTag()
 
 {
-    ;
+    free(this->dom);
 
 }
 

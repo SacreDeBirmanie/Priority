@@ -1,29 +1,22 @@
 import QtQuick 1.1
 
-Row {
-    anchors.left: parent
-    Rectangle {
-        border.width : 1
-        border.color : "black"
-        Text {
-            text: qsTr("filtrer par tag : ")
-            anchors.fill: parent
+Rectangle {
+    id: button
 
-        }
+    property color buttonColor: "lightblue"
+    property color onHoverColor: "gold"
+    property color borderColor: "white"
+
+    signal buttonClick()
+    onButtonClick: {
+        console.log(buttonLabel.text + " clicked" )
     }
-    Rectangle {
-        border.width : 1
-        border.color : "black"
-        TextInput {
-            width: 240
-            cursorVisible: true
-            anchors.fill: parent
-        }
+
+    MouseArea{
+        onClicked: buttonClick()
+        hoverEnabled: true
+        onEntered: parent.border.color = onHoverColor
+        onExited:  parent.border.color = borderColor
     }
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            Qt.quit();
-        }
-    }
+
 }

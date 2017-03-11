@@ -10,7 +10,7 @@ Navigation_Repertoire::Navigation_Repertoire(){
 
 bool Navigation_Repertoire::existe_dossier(QString chemin){
     QDir repertoire = QDir(chemin);
-    return repertoire.exists(chemin);
+    return repertoire.exists();
 }
 
 bool Navigation_Repertoire::existe_fichier(QString chemin){

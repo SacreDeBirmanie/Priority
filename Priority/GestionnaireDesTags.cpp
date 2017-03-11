@@ -44,7 +44,7 @@ void GestionnaireDesTags::creerUnNouveauTag(QString nom){
 
 }
 
-void GestionnaireDesTags::supprimerUnTag(Tag *tag){
+void GestionnaireDesTags::supprimerTag(Tag* tag){
     if(!GestionnaireEnregistrementTag::existe(tag->getNom())){
         //mise a jour de la memoire
         GestionnaireEnregistrementTag::supprimerTag(tag->getNom());
@@ -55,17 +55,20 @@ void GestionnaireDesTags::supprimerUnTag(Tag *tag){
         ;
 }
 
-//private
-void GestionnaireDesTags::tagerUnFichier(QString fich){
-    ;
+void GestionnaireDesTags::tagger(Tag* tag, QString nom_fichier){
+    GestionnaireEnregistrementTag *memoire = new GestionnaireEnregistrementTag(tag->getNom());
+    memoire->tagger(nom_fichier);
+
+    tag->ajouterFichier(nom_fichier);
 }
 
+//private
 void GestionnaireDesTags::ajouterTagByString(QString nom){
     Tag* tmp_tag = new Tag(nom);
     this->lestags.append(tmp_tag);
 }
 
-void GestionnaireDesTags::supprimerTag(Tag* tag){
+void GestionnaireDesTags::supprimerTagListe(Tag* tag){
    int resultat = this->lestags.indexOf(tag);
    if(resultat >= 0)
        this->lestags.removeAt(resultat);

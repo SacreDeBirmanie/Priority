@@ -1,25 +1,25 @@
-#ifndef GESTIONNAIREDESTAGS
-#define GESTIONNAIREDESTAGS
+#ifndef GESTIONNAIRE_DES_TAGS
+#define GESTIONNAIRE_DES_TAGS
 #include <QList>
 #include "Tag.hpp"
 
-class gestionnaireDesTags{
+class GestionnaireDesTags{
     private :
         QList<Tag*> lestags;
-        void ecrireDansLeFichier();
+        void tagerUnFichier(QString fich);
         void ajouterTagByString(QString nom);
         void supprimerTag(Tag* tag);
+
     public :
-        gestionnaireDesTags();
-        void récupérerLesTags();
-        void créerUnNouveauTag(QString nom);
-        void supprimerUnTag(Tag* tag);
-
-
+        GestionnaireDesTags();
+        void recupererLesFichiers(Tag* tag);
+        void recupererLesTags();
+        void creerUnNouveauTag(QString nom);
+        void supprimerUnTag(Tag *tag);
 };
 
 
 
-#endif // GESTIONNAIREDESTAGS
+#endif // GESTIONNAIRE_DES_TAGS
 
 

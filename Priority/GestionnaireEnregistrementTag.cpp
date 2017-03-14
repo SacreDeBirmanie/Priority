@@ -12,10 +12,9 @@ const QString GestionnaireEnregistrementTag::EXTENSION = QString(".xml");
 
 
 GestionnaireEnregistrementTag::GestionnaireEnregistrementTag(QString nom_fichier_tag){
-
+    this->nom_fichier = nom_fichier_tag;
     this->dom = new QDomDocument(nom_fichier_tag);
-
-    QFile xml_doc(CHEMIN_DOSSIER_TAGS+GestionnaireEnregistrementTag::NOM_DOSSIER_TAGS + nom_fichier_tag + EXTENSION);// On choisit le fichier contenant les informations XML.
+    QFile xml_doc(CHEMIN_DOSSIER_TAGS+NOM_DOSSIER_TAGS +"/"+ nom_fichier_tag + EXTENSION);// On choisit le fichier contenant les informations XML.
     if(!xml_doc.open(QIODevice::ReadOnly))// Si l'on n'arrive pas à ouvrir le fichier XML.
     {
         //QMessageBox::warning(this,"Erreur à l'ouverture du document XML","Le document XML n'a pas pu être ouvert. Vérifiez que le nom est le bon et que le document est bien placé");
@@ -37,13 +36,16 @@ GestionnaireEnregistrementTag::GestionnaireEnregistrementTag(QString nom_fichier
 QStringList GestionnaireEnregistrementTag::recupererFichiers(){
     QStringList laliste;
 
-    QDomElement dom_element = this->dom->documentElement();
-    QDomNodeList fichiers = dom_element.elementsByTagName("fichier");
+    QDomNodeList fichiers = this->dom->elementsByTagName("fichier");
+    std::cout<<fichiers.length()<<std::endl;
     for(int i = 0; i<fichiers.size();i++)
     {
         QDomNode tmp = fichiers.at(i);
-        if(!tmp.isNull())
-        laliste.append(tmp.nodeValue());
+        if(!tmp.isNull()){
+            std::cout<<"coucou"<<std::endl;
+            std::cout<<tmp.lastChild().nodeValue().toStdString()<<std::endl;
+            laliste.append(tmp.lastChild().nodeValue());
+        }
 
     }
 
@@ -57,9 +59,9 @@ void GestionnaireEnregistrementTag::tagger(QString nom_fich){
     QDomText texte = this->dom->createTextNode(nom_fich);
 
     nouveau_element.appendChild(texte);
-    dom_element.appendChild(nouveau_element);
+    this->dom->appendChild(nouveau_element);
 
-    Navigation_Repertoire::ecrire(CHEMIN_DOSSIER_TAGS+GestionnaireEnregistrementTag::NOM_DOSSIER_TAGS, this->dom->toString(), this->dom->nodeName() );
+    Navigation_Repertoire::ecrire(CHEMIN_DOSSIER_TAGS+NOM_DOSSIER_TAGS + "/" + this->nom_fichier + EXTENSION , this->dom->toString() );
 }
 
 
@@ -75,18 +77,18 @@ GestionnaireEnregistrementTag::~GestionnaireEnregistrementTag()
 QStringList GestionnaireEnregistrementTag::listeDesTags(){
     QStringList filtre;
     filtre << "*.xml";
-    if(!Navigation_Repertoire::existe_dossier(GestionnaireEnregistrementTag::CHEMIN_DOSSIER_TAGS+GestionnaireEnregistrementTag::NOM_DOSSIER_TAGS)){
+    if(!Navigation_Repertoire::existe_dossier(CHEMIN_DOSSIER_TAGS+GestionnaireEnregistrementTag::NOM_DOSSIER_TAGS)){
         cout<<"pas de dossier"<<endl;
-        if(Navigation_Repertoire::creerDossier(GestionnaireEnregistrementTag::CHEMIN_DOSSIER_TAGS,GestionnaireEnregistrementTag::NOM_DOSSIER_TAGS))
+        if(Navigation_Repertoire::creerDossier(CHEMIN_DOSSIER_TAGS,NOM_DOSSIER_TAGS))
             cout<<"succès création dossier TAGS"<<endl;
         else
             cout<<"échec création dossier TAGS"<<endl;
     }
-    return Navigation_Repertoire::listeDesFichiers(GestionnaireEnregistrementTag::CHEMIN_DOSSIER_TAGS+GestionnaireEnregistrementTag::NOM_DOSSIER_TAGS, filtre);
+    return Navigation_Repertoire::listeDesFichiers(CHEMIN_DOSSIER_TAGS+NOM_DOSSIER_TAGS, filtre, false);
 }
 
 bool GestionnaireEnregistrementTag::existe(QString nom){
-   return Navigation_Repertoire::existe_fichier(GestionnaireEnregistrementTag::CHEMIN_DOSSIER_TAGS+GestionnaireEnregistrementTag::NOM_DOSSIER_TAGS+"/" + nom + GestionnaireEnregistrementTag::EXTENSION);
+   return Navigation_Repertoire::existe_fichier(CHEMIN_DOSSIER_TAGS+NOM_DOSSIER_TAGS+"/" + nom + EXTENSION);
 }
 
 void GestionnaireEnregistrementTag::creerTag(QString nom){

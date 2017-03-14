@@ -1,21 +1,23 @@
 #ifndef GESTIONNAIRE_DES_TAGS
 #define GESTIONNAIRE_DES_TAGS
-#include <QList>
+#include <QHash>
 #include "Tag.hpp"
 
 class GestionnaireDesTags{
     private :
-        QList<Tag*> lestags;
-        void ajouterTagByString(QString nom);
-        void supprimerTagListe(Tag* tag);
+        QHash<QString, Tag*> lestags;
+
+        void recupererLesFichiers(Tag* tag);
+        void ajouterTagByString(QString nom_tag);
+        void supprimerTagListe(QString nom_tag);
 
     public :
         GestionnaireDesTags();
-        void recupererLesFichiers(Tag* tag);
         void recupererLesTags();
         void creerUnNouveauTag(QString nom);
-        void supprimerTag(Tag *tag);
-        void tagger(Tag* tag, QString nom_fichier);
+        void supprimerTag(QString nom_tag);
+        void tagger(QString nom_tag, QString nom_fichier);
+        Tag* getTag(QString nom);
 };
 
 

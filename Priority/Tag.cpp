@@ -19,9 +19,11 @@ void Tag::supprimerFichier(QString fich){
     else
         ;
 }
-void Tag::ajouterFichier(QString fichier){
-    if(!this->fichiers.contains(fichier))
+bool Tag::ajouterFichier(QString fichier){
+    if(!this->fichiers.contains(fichier)){
         this->fichiers.append(fichier);
+        return true;
+    }
     else
-        ;
+        return false;
 }

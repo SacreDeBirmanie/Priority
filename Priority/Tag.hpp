@@ -16,7 +16,7 @@ public :
     void setNom(QString n);
 
     void supprimerFichier(QString fich);
-    void ajouterFichier(QString fichier);
+    bool ajouterFichier(QString fichier);
 };
 
 

@@ -17,7 +17,7 @@ bool Navigation_Repertoire::existe_fichier(QString chemin){
     return QFile::exists(chemin);
 }
 
-QStringList Navigation_Repertoire::listeDesFichiers(QString chemin, QStringList filtre_extension){
+QStringList Navigation_Repertoire::listeDesFichiers(QString chemin, QStringList filtre_extension, bool extension = true){
     QStringList liste;
     QDir repertoire(chemin);
 
@@ -28,7 +28,10 @@ QStringList Navigation_Repertoire::listeDesFichiers(QString chemin, QStringList 
     QFileInfoList listefichiers = repertoire.entryInfoList();
     for (int i = 0; i < listefichiers.size(); ++i) {
        QFileInfo fichInfo = listefichiers.at(i);
-       liste.append(fichInfo.fileName());
+            if(extension)
+                liste.append(fichInfo.fileName());
+            else
+                liste.append(fichInfo.baseName());
     }
     return liste;
 
@@ -52,8 +55,8 @@ void Navigation_Repertoire::supprimerFichier(QString chemin, QString nom){
     repertoire.remove(nom);
 }
 
-void Navigation_Repertoire::ecrire(QString chemin, QString nom, QString contenu){
-    QFile fichier(chemin + nom);
+void Navigation_Repertoire::ecrire(QString chemin_fichier, QString contenu){
+    QFile fichier(chemin_fichier);
     if(!fichier.open(QIODevice::WriteOnly))
     {
         fichier.close();

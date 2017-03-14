@@ -28,6 +28,5 @@ int main(int argc, char *argv[])
     GestionnaireDesTags *tagger = new GestionnaireDesTags();
     tagger->recupererLesTags();
     tagger->creerUnNouveauTag("Serie");
-
     return app.exec();
 }

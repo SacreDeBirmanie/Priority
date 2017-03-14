@@ -1,10 +1,14 @@
 TEMPLATE = app
 
-QT += qml quick
+QT += qml quick xml
 QT += widgets
 CONFIG += c++11
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    GestionnaireDesTags.cpp \
+    GestionnaireEnregistrementTag.cpp \
+    Navigation_Repertoire.cpp \
+    Tag.cpp
 
 RESOURCES += qml.qrc
 
@@ -30,4 +34,8 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-HEADERS +=
+HEADERS += \
+    GestionnaireDesTags.hpp \
+    GestionnaireEnregistrementTag.hpp \
+    Navigation_Repertoire.hpp \
+    Tag.hpp

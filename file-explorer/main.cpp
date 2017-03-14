@@ -6,6 +6,7 @@
 #include <QDateTime>
 #include <QDesktopServices>
 #include <QUrl>
+#include <GestionnaireDesTags.hpp>
 
 
 
@@ -23,6 +24,10 @@ int main(int argc, char *argv[])
     engine.load(QUrl(QStringLiteral("qrc:///main.qml")));
     if (engine.rootObjects().isEmpty())
         return -1;
+
+    GestionnaireDesTags *tagger = new GestionnaireDesTags();
+    tagger->recupererLesTags();
+    tagger->creerUnNouveauTag("Serie");
 
     return app.exec();
 }

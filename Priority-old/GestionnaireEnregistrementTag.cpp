@@ -6,8 +6,7 @@
 
 using namespace std;
 
-const QString GestionnaireEnregistrementTag::NOM_DOSSIER_TAGS = QString(".TAGS");
-const QString GestionnaireEnregistrementTag::CHEMIN_DOSSIER_TAGS = QString("");
+const QString GestionnaireEnregistrementTag::CHEMIN_DOSSIER_TAGS = QString("/.TAGS/");
 const QString GestionnaireEnregistrementTag::EXTENSION = QString(".xml");
 
 
@@ -15,7 +14,7 @@ GestionnaireEnregistrementTag::GestionnaireEnregistrementTag(QString nom_fichier
 
     this->dom = new QDomDocument(nom_fichier_tag);
 
-    QFile xml_doc(CHEMIN_DOSSIER_TAGS+GestionnaireEnregistrementTag::NOM_DOSSIER_TAGS + nom_fichier_tag + EXTENSION);// On choisit le fichier contenant les informations XML.
+    QFile xml_doc(CHEMIN_DOSSIER_TAGS + nom_fichier_tag + EXTENSION);// On choisit le fichier contenant les informations XML.
     if(!xml_doc.open(QIODevice::ReadOnly))// Si l'on n'arrive pas à ouvrir le fichier XML.
     {
         //QMessageBox::warning(this,"Erreur à l'ouverture du document XML","Le document XML n'a pas pu être ouvert. Vérifiez que le nom est le bon et que le document est bien placé");
@@ -59,7 +58,7 @@ void GestionnaireEnregistrementTag::tagger(QString nom_fich){
     nouveau_element.appendChild(texte);
     dom_element.appendChild(nouveau_element);
 
-    Navigation_Repertoire::ecrire(CHEMIN_DOSSIER_TAGS+GestionnaireEnregistrementTag::NOM_DOSSIER_TAGS, this->dom->toString(), this->dom->nodeName() );
+    Navigation_Repertoire::ecrire(CHEMIN_DOSSIER_TAGS, this->dom->toString(), this->dom->nodeName() );
 }
 
 
@@ -75,34 +74,22 @@ GestionnaireEnregistrementTag::~GestionnaireEnregistrementTag()
 QStringList GestionnaireEnregistrementTag::listeDesTags(){
     QStringList filtre;
     filtre << "*.xml";
-    if(!Navigation_Repertoire::existe_dossier(GestionnaireEnregistrementTag::CHEMIN_DOSSIER_TAGS+GestionnaireEnregistrementTag::NOM_DOSSIER_TAGS)){
-        cout<<"pas de dossier"<<endl;
-        if(Navigation_Repertoire::creerDossier(GestionnaireEnregistrementTag::CHEMIN_DOSSIER_TAGS,GestionnaireEnregistrementTag::NOM_DOSSIER_TAGS))
-            cout<<"succès création dossier TAGS"<<endl;
-        else
-            cout<<"échec création dossier TAGS"<<endl;
-    }
-    return Navigation_Repertoire::listeDesFichiers(GestionnaireEnregistrementTag::CHEMIN_DOSSIER_TAGS+GestionnaireEnregistrementTag::NOM_DOSSIER_TAGS, filtre);
+    return Navigation_Repertoire::listeDesFichiers(GestionnaireEnregistrementTag::CHEMIN_DOSSIER_TAGS, filtre);
 }
 
 bool GestionnaireEnregistrementTag::existe(QString nom){
-   return Navigation_Repertoire::existe_fichier(GestionnaireEnregistrementTag::CHEMIN_DOSSIER_TAGS+GestionnaireEnregistrementTag::NOM_DOSSIER_TAGS+"/" + nom + GestionnaireEnregistrementTag::EXTENSION);
+   return Navigation_Repertoire::existe_fichier(GestionnaireEnregistrementTag::CHEMIN_DOSSIER_TAGS + nom + GestionnaireEnregistrementTag::EXTENSION);
 }
 
 void GestionnaireEnregistrementTag::creerTag(QString nom){
-    cout<<"création tag"<<endl;
-    if(!Navigation_Repertoire::existe_fichier(CHEMIN_DOSSIER_TAGS+GestionnaireEnregistrementTag::NOM_DOSSIER_TAGS+"/" + nom + EXTENSION)){
-        cout<<"le tag n'existe pas"<<endl;
-        Navigation_Repertoire::creerFichier(CHEMIN_DOSSIER_TAGS+GestionnaireEnregistrementTag::NOM_DOSSIER_TAGS+"/", nom + EXTENSION);
-
-    }
-    else{
-        cout<<"le tag existe déjà"<<endl;
-    }
+    if(!Navigation_Repertoire::existe_fichier(CHEMIN_DOSSIER_TAGS + nom + EXTENSION))
+        Navigation_Repertoire::creerFichier(CHEMIN_DOSSIER_TAGS, nom + EXTENSION);
+    else
+        ;
 }
 
 void GestionnaireEnregistrementTag::supprimerTag(QString nom){
-     Navigation_Repertoire::supprimerFichier(GestionnaireEnregistrementTag::CHEMIN_DOSSIER_TAGS+GestionnaireEnregistrementTag::NOM_DOSSIER_TAGS, nom + GestionnaireEnregistrementTag::EXTENSION);
+     Navigation_Repertoire::supprimerFichier(GestionnaireEnregistrementTag::CHEMIN_DOSSIER_TAGS, nom + GestionnaireEnregistrementTag::EXTENSION);
 }
 
 

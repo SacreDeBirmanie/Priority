@@ -17,7 +17,6 @@ class GestionnaireEnregistrementTag
         QDomDocument *dom;
     public:
         static const QString CHEMIN_DOSSIER_TAGS;
-        static const QString NOM_DOSSIER_TAGS;
         static const QString EXTENSION;
 
         GestionnaireEnregistrementTag(QString nom_fichier_tag);

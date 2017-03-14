@@ -34,15 +34,16 @@ QStringList Navigation_Repertoire::listeDesFichiers(QString chemin, QStringList 
 
 }
 
-void Navigation_Repertoire::creerDossier(QString chemin, QString nom){
+bool Navigation_Repertoire::creerDossier(QString chemin, QString nom){
     QDir repertoire = QDir(chemin);
-    repertoire.mkdir(nom);
+    return repertoire.mkdir(nom);
 
 
 }
 
 void Navigation_Repertoire::creerFichier(QString chemin, QString nom){
     QFile fichier(chemin+nom);
+    fichier.open(QIODevice::ReadWrite);
     fichier.close();
 }
 

@@ -39,9 +39,9 @@ void GestionnaireDesTags::creerUnNouveauTag(QString nom){
         //mise a jour de la liste
         this->ajouterTagByString(nom);
     }
-    else{
+    else
         ;
-    }
+
 }
 
 void GestionnaireDesTags::supprimerTag(Tag* tag){
@@ -51,9 +51,8 @@ void GestionnaireDesTags::supprimerTag(Tag* tag){
         //mise a jour de la liste
         this->supprimerTag(tag);
     }
-    else{
+    else
         ;
-    }
 }
 
 void GestionnaireDesTags::tagger(Tag* tag, QString nom_fichier){
@@ -73,8 +72,7 @@ void GestionnaireDesTags::supprimerTagListe(Tag* tag){
    int resultat = this->lestags.indexOf(tag);
    if(resultat >= 0)
        this->lestags.removeAt(resultat);
-   else{
+   else
        ;
-   }
 
 }

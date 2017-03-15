@@ -36,16 +36,22 @@ GestionnaireEnregistrementTag::GestionnaireEnregistrementTag(QString nom_fichier
 QStringList GestionnaireEnregistrementTag::recupererFichiers(){
     QStringList laliste;
 
-    QDomNodeList fichiers = this->dom->elementsByTagName("fichier");
-    std::cout<<fichiers.length()<<std::endl;
-    for(int i = 0; i<fichiers.size();i++)
+    QDomNodeList conteneur = this->dom->elementsByTagName("fichiers");
+    for(int i = 0; i<conteneur.size();i++)
     {
-        QDomNode tmp = fichiers.at(i);
-        if(!tmp.isNull()){
-            std::cout<<"coucou"<<std::endl;
-            std::cout<<tmp.lastChild().nodeValue().toStdString()<<std::endl;
-            laliste.append(tmp.lastChild().nodeValue());
+        if(conteneur.at(i).isElement()){
+            QDomElement tmp_conteneur = conteneur.at(i).toElement();
+            QDomNodeList fichiers = tmp_conteneur.elementsByTagName("fichier");
+
+            for(int i = 0; i<fichiers.size();i++){
+                if(fichiers.at(i).isElement()){
+                    QDomElement tmp_fichier = fichiers.at(i).toElement();
+                    laliste.append(tmp_fichier.lastChild().nodeValue());
+                }
+            }
         }
+
+
 
     }
 
@@ -59,10 +65,47 @@ void GestionnaireEnregistrementTag::tagger(QString nom_fich){
     QDomText texte = this->dom->createTextNode(nom_fich);
 
     nouveau_element.appendChild(texte);
-    this->dom->appendChild(nouveau_element);
+    QDomNodeList fichiers = this->dom->elementsByTagName("fichiers");
+    if(fichiers.size()==0){
+        QDomElement nouveau_conteneur = this->dom->createElement("fichiers");
+        nouveau_conteneur.appendChild(nouveau_element);
+        this->dom->appendChild(nouveau_conteneur);
+    }
+    else{
+        if(fichiers.at(0).isElement()){
+            QDomElement conteneur_existant = fichiers.at(0).toElement();
+            conteneur_existant.appendChild(nouveau_element);
+        }
+    }
+
 
     Navigation_Repertoire::ecrire(CHEMIN_DOSSIER_TAGS+NOM_DOSSIER_TAGS + "/" + this->nom_fichier + EXTENSION , this->dom->toString() );
 }
+
+void GestionnaireEnregistrementTag::detagger(QString nom_fich){
+
+    QDomNodeList conteneur = this->dom->elementsByTagName("fichiers");
+    for(int i = 0; i<conteneur.size();i++)
+    {
+        if(conteneur.at(i).isElement()){
+            QDomElement tmp_conteneur = conteneur.at(i).toElement();
+            QDomNodeList fichiers = tmp_conteneur.elementsByTagName("fichier");
+
+            for(int i = 0; i<fichiers.size();i++){
+                if(fichiers.at(i).isElement()){
+                    QDomElement tmp_fichier = fichiers.at(i).toElement();
+                    if(tmp_fichier.lastChild().nodeValue() == nom_fich){
+                        tmp_conteneur.removeChild(tmp_fichier);
+                    }else
+                        ;
+                }
+            }
+        }
+
+    }
+    Navigation_Repertoire::ecrire(CHEMIN_DOSSIER_TAGS+NOM_DOSSIER_TAGS + "/" + this->nom_fichier + EXTENSION , this->dom->toString() );
+}
+
 
 
 GestionnaireEnregistrementTag::~GestionnaireEnregistrementTag()

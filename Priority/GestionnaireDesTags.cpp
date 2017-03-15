@@ -40,7 +40,7 @@ void GestionnaireDesTags::supprimerTag(QString nom_tag){
         //mise a jour de la memoire
         GestionnaireEnregistrementTag::supprimerTag(nom_tag);
         //mise a jour de la liste
-        this->supprimerTag(nom_tag);
+        this->supprimerTagListe(nom_tag);
     }
     else{
         ;
@@ -61,7 +61,18 @@ void GestionnaireDesTags::tagger(QString nom_tag, QString chemin_fichier){
         ;
 }
 
- Tag* GestionnaireDesTags::getTag(QString nom_tag){
+void GestionnaireDesTags::detagger(QString nom_tag, QString chemin_fichier){
+
+    GestionnaireEnregistrementTag *memoire = new GestionnaireEnregistrementTag(nom_tag);
+    memoire->detagger(chemin_fichier);
+
+
+    Tag * tag = getTag(nom_tag);
+    tag->supprimerFichier(chemin_fichier);
+}
+
+//private
+Tag* GestionnaireDesTags::getTag(QString nom_tag){
      QHash<QString, Tag*>::iterator i = this->lestags.find(nom_tag);
      while (i != this->lestags.end() && i.key() == nom_tag) {
          return i.value();
@@ -70,7 +81,6 @@ void GestionnaireDesTags::tagger(QString nom_tag, QString chemin_fichier){
      return NULL;
  }
 
-//private
 void GestionnaireDesTags::recupererLesFichiers(Tag* tag){
      GestionnaireEnregistrementTag *document = new GestionnaireEnregistrementTag(tag->getNom());
 
@@ -92,8 +102,10 @@ void GestionnaireDesTags::ajouterTagByString(QString nom){
 void GestionnaireDesTags::supprimerTagListe(QString nom_tag){
     QHash<QString, Tag*>::const_iterator i = this->lestags.find(nom_tag);
     while (i != this->lestags.end() && i.key() == nom_tag){
-        this->lestags.erase(i);
-        ++i;
+        if(i.value()==0){
+            this->lestags.erase(i);
+        }else
+            i++;
     }
 
 }

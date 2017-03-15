@@ -10,14 +10,15 @@ class GestionnaireDesTags{
         void recupererLesFichiers(Tag* tag);
         void ajouterTagByString(QString nom_tag);
         void supprimerTagListe(QString nom_tag);
+        Tag* getTag(QString nom);
 
-    public :
+    public slots:
         GestionnaireDesTags();
         void recupererLesTags();
         void creerUnNouveauTag(QString nom);
         void supprimerTag(QString nom_tag);
         void tagger(QString nom_tag, QString nom_fichier);
-        Tag* getTag(QString nom);
+        void detagger(QString nom_tag, QString nom_fichier);
 };
 
 

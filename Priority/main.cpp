@@ -26,15 +26,20 @@ int main(int argc, char *argv[])
     if (engine.rootObjects().isEmpty())
         return -1;
 
+    QPushButton* button = new QPushButton("essai");
+    GestionnaireDesTags tagger;
+    QObject::connect(button, SIGNAL(triggered()), &tagger, SLOT(creerUnNouveauTag()));
 
-    GestionnaireDesTags *tagger = new GestionnaireDesTags();
-    QPushButton bouton("Pimp mon bouton !");
+    //QObject::connect(button1, SIGNAL(clicked()), &tagger, SLOT(creerUnNouveauTag(QString)));
     tagger->recupererLesTags();
     tagger->creerUnNouveauTag("Serie");
-    tagger->tagger("Serie", "monfichier");
+    tagger->tagger("Serie", "haha");
+    tagger->tagger("Serie", "haha");
+    tagger->tagger("Serie", "lulu");
+    tagger->detagger("Serie", "lulu");
 
     tagger->creerUnNouveauTag("lol");
-    tagger->tagger("lol", "monfichier");
-    //tagger->supprimerTag(lol);
+    tagger->tagger("lol", "test");
+    tagger->supprimerTag("lol");
     return app.exec();
 }

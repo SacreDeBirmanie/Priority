@@ -8,7 +8,8 @@ SOURCES += main.cpp \
     GestionnaireDesTags.cpp \
     GestionnaireEnregistrementTag.cpp \
     Navigation_Repertoire.cpp \
-    Tag.cpp
+    Tag.cpp \
+    FenetreManagerDeTag.cpp
 
 RESOURCES += qml.qrc
 
@@ -38,4 +39,5 @@ HEADERS += \
     GestionnaireDesTags.hpp \
     GestionnaireEnregistrementTag.hpp \
     Navigation_Repertoire.hpp \
-    Tag.hpp
+    Tag.hpp \
+    FenetreManagerDeTag.hpp

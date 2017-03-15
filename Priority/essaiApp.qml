@@ -26,9 +26,10 @@ ApplicationWindow {
         signal creerUnNouveauTag(string msg)
         TextField {
             id : tagtext
-            text: ""
         }
+
         Button {
+            id : button1
             text: "ajouter Tag"
             onClicked: row1.creerUnNouveauTag(tagtext.text)
         }

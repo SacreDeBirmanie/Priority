@@ -24,6 +24,7 @@ class GestionnaireEnregistrementTag
         GestionnaireEnregistrementTag(QString nom_fichier_tag);
         QStringList recupererFichiers();
         void tagger(QString nom_fich);
+        void detagger(QString nom_fich);
         ~GestionnaireEnregistrementTag();
 
         static QStringList listeDesTags();

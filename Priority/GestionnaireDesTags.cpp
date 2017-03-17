@@ -71,6 +71,17 @@ void GestionnaireDesTags::detagger(QString nom_tag, QString chemin_fichier){
     tag->supprimerFichier(chemin_fichier);
 }
 
+QStringList GestionnaireDesTags::listeDesNomTags(){
+    QHash<QString, Tag*>::const_iterator i = this->lestags.begin();
+    QStringList laliste;
+    while (i != this->lestags.end()){
+            laliste.append(i.value()->getNom());
+            i++;
+    }
+
+    return laliste;
+}
+
 //private
 Tag* GestionnaireDesTags::getTag(QString nom_tag){
      QHash<QString, Tag*>::iterator i = this->lestags.find(nom_tag);

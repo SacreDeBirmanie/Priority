@@ -1,6 +1,9 @@
 #ifndef GESTIONNAIRE_DES_TAGS
 #define GESTIONNAIRE_DES_TAGS
 #include <QHash>
+#include <QObject>
+#include <QStringList>
+
 #include "Tag.hpp"
 
 class GestionnaireDesTags{
@@ -12,13 +15,15 @@ class GestionnaireDesTags{
         void supprimerTagListe(QString nom_tag);
         Tag* getTag(QString nom);
 
-    public slots:
+    public :
         GestionnaireDesTags();
         void recupererLesTags();
         void creerUnNouveauTag(QString nom);
         void supprimerTag(QString nom_tag);
         void tagger(QString nom_tag, QString nom_fichier);
         void detagger(QString nom_tag, QString nom_fichier);
+        QStringList listeDesNomTags();
+
 };
 
 

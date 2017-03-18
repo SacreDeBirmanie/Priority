@@ -12,6 +12,7 @@
 
 #include "GestionnaireDesTags.hpp"
 #include "FenetreManagerDeTag.hpp"
+#include "FenetreRechercheAffichageTag.hpp"
 
 
 
@@ -25,6 +26,8 @@ int main(int argc, char *argv[])
     tagger->recupererLesTags();
 
     FenetreManagerDeTag* fenetreTag = new FenetreManagerDeTag(tagger,&vueApp);
+    //FenetreRechercheAffichageTag *vueRecherche = new FenetreRechercheAffichageTag(tagger,&vueApp);
+
     vueApp.showMaximized();
     return app.exec();
 }

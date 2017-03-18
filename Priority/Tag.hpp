@@ -14,6 +14,7 @@ public :
 
     QString getNom();
     void setNom(QString n);
+    int compterFichiers();
 
     void supprimerFichier(QString fich);
     bool ajouterFichier(QString fichier);

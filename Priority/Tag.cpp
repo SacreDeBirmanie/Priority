@@ -12,6 +12,10 @@ void Tag::setNom(QString n){
     this->nom = n;
 }
 
+int Tag::compterFichiers(){
+    return this->fichiers.count();
+}
+
 void Tag::supprimerFichier(QString fich){
     int resultat = this->fichiers.indexOf(fich,0);
     if(resultat >= 0)

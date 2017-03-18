@@ -23,6 +23,7 @@ class GestionnaireDesTags{
         void tagger(QString nom_tag, QString nom_fichier);
         void detagger(QString nom_tag, QString nom_fichier);
         QStringList listeDesNomTags();
+        int compterFichiers(QString nom_tag);
 
 };
 

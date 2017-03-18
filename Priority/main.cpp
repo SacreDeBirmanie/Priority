@@ -8,6 +8,7 @@
 #include <QUrl>
 #include <QPushButton>
 #include <QWidget>
+#include <iostream>
 
 #include "GestionnaireDesTags.hpp"
 #include "FenetreManagerDeTag.hpp"

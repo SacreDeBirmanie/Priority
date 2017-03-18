@@ -82,6 +82,18 @@ QStringList GestionnaireDesTags::listeDesNomTags(){
     return laliste;
 }
 
+int  GestionnaireDesTags::compterFichiers(QString nom_tag){
+    QHash<QString, Tag*>::iterator i = this->lestags.find(nom_tag);
+    int tmp = 0;
+    int count = 0;
+    while (i != this->lestags.end() && i.key() == nom_tag && count<3) {
+        tmp =  i.value()->compterFichiers();
+        i++;
+    }
+
+    return tmp;
+}
+
 //private
 Tag* GestionnaireDesTags::getTag(QString nom_tag){
      QHash<QString, Tag*>::iterator i = this->lestags.find(nom_tag);

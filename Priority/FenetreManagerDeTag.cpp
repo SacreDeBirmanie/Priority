@@ -52,7 +52,9 @@ void FenetreManagerDeTag::positionnerTags(int largeurMax){
     int placementLargeur = 0;
     QStringList::const_iterator i = laliste.begin();
     while (i != laliste.end()) {
-        QPushButton* tmp = new QPushButton((*i).toLocal8Bit().constData());
+        QString nom_tag = (*i).toLocal8Bit().constData();
+        QPushButton* tmp = new QPushButton(nom_tag + " : " + QString::number(gestionnaire->compterFichiers(nom_tag)));
+        tmp->setToolTip("nom_du_tag : nombre fichiers associés");
         this->positionnementTagsDisponibles->addWidget(tmp,placementHauteur,placementLargeur);
         if(placementLargeur<largeurMax-1){
             placementLargeur++;

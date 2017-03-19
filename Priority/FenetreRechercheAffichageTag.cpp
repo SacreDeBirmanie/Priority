@@ -76,13 +76,15 @@ void FenetreRechercheAffichageTag::filtrerTag_onclick(){
     if(!tmp.isNull()&&!tmp.isEmpty()){
         Tag *tag = gestionnaire->getTag(tmp);
         if(tag != NULL){
-            active_tag->append(tag);
-            QStringList list= filtrerTag();
-            QStringList headers;
-            headers << tr("Nom");
-            tagmodel = new TagModel(headers, list);
-            tree->setModel(tagmodel);
-            boutonclear_filter->setEnabled(true);
+            if(!active_tag->contains(tag)){
+                active_tag->append(tag);
+                QStringList list= filtrerTag();
+                QStringList headers;
+                headers << tr("Nom");
+                tagmodel = new TagModel(headers, list);
+                tree->setModel(tagmodel);
+                boutonclear_filter->setEnabled(true);
+            }
         }else{
             QMessageBox msgBox;
             msgBox.setText("Tag inconnu");

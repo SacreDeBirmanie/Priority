@@ -123,7 +123,7 @@ void FenetreManagerDeTag::creerUnNouveauTag(){
 }
 
 void FenetreManagerDeTag::supprimerTags(){
-    int reponse = QMessageBox::question(this, "Suppression de tags", "vous allez supprimer les tags suivants suivants :", QMessageBox::Yes | QMessageBox::No);
+    int reponse = QMessageBox::question(this, "Suppression de tags", "vous allez supprimer les tags suivants suivants :\n yes", QMessageBox::Yes | QMessageBox::No);
 
      if (reponse == QMessageBox::Yes){
          QList<QPushButton*>::const_iterator i = listeBoutonsTags.begin();
@@ -138,6 +138,7 @@ void FenetreManagerDeTag::supprimerTags(){
             QMessageBox::critical(this, "suppression annulée", "La suppression des tags a été annulée.");
         }
         this->positionnerTags(4);
+     this->update();
 
 
 }

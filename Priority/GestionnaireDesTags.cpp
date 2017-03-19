@@ -147,9 +147,8 @@ void GestionnaireDesTags::ajouterTagByString(QString nom){
 void GestionnaireDesTags::supprimerTagListe(QString nom_tag){
     QHash<QString, Tag*>::const_iterator i = this->lestags.find(nom_tag);
     while (i != this->lestags.end() && i.key() == nom_tag){
-        if(i.value()==0){
+
             this->lestags.erase(i);
-        }else
             i++;
     }
 

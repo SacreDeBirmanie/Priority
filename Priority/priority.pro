@@ -10,7 +10,9 @@ SOURCES += main.cpp \
     Navigation_Repertoire.cpp \
     Tag.cpp \
     FenetreManagerDeTag.cpp \
-    FenetreRechercheAffichageTag.cpp
+    FenetreRechercheAffichageTag.cpp \
+    TagModel.cpp \
+    TagItem.cpp
 
 RESOURCES += qml.qrc
 
@@ -42,4 +44,6 @@ HEADERS += \
     Navigation_Repertoire.hpp \
     Tag.hpp \
     FenetreManagerDeTag.hpp \
-    FenetreRechercheAffichageTag.hpp
+    FenetreRechercheAffichageTag.hpp \
+    TagModel.hpp \
+    TagItem.hpp

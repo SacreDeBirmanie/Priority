@@ -6,7 +6,6 @@
 
 FenetreManagerDeTag::FenetreManagerDeTag(GestionnaireDesTags* gest,QWidget *parent) : QSplitter(parent){
     gestionnaire = gest;
-    //setLayout(this->positionnementManagerDesTags);
     this->setOrientation(Qt::Vertical);
 
     actionsLies = new QSplitter(Qt::Vertical);
@@ -129,7 +128,8 @@ void FenetreManagerDeTag::supprimerTags(){
      if (reponse == QMessageBox::Yes){
          QList<QPushButton*>::const_iterator i = listeBoutonsTags.begin();
          while (i != listeBoutonsTags.end()) {
-             gestionnaire->supprimerTag((*i)->accessibleName());
+             if((*i)->isChecked())
+                gestionnaire->supprimerTag((*i)->accessibleName());
              i++;
         }
         QMessageBox::information(this, "suppression réussie", "Les tags ont été supprimé correctement");
@@ -137,7 +137,7 @@ void FenetreManagerDeTag::supprimerTags(){
         else if (reponse == QMessageBox::No){
             QMessageBox::critical(this, "suppression annulée", "La suppression des tags a été annulée.");
         }
-
+        this->positionnerTags(4);
 
 
 }

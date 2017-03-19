@@ -104,7 +104,7 @@ Tag* GestionnaireDesTags::getTag(QString nom_tag){
      return NULL;
  }
 
-void GestionnaireDesTags::recupererLesFichiers(Tag* tag){
+QStringList GestionnaireDesTags::recupererLesFichiers(Tag* tag){
      GestionnaireEnregistrementTag *document = new GestionnaireEnregistrementTag(tag->getNom());
 
      QStringList liste = document->recupererFichiers();
@@ -113,7 +113,7 @@ void GestionnaireDesTags::recupererLesFichiers(Tag* tag){
      while (iterator.hasNext()){
          tag->ajouterFichier(iterator.next().toLocal8Bit().constData());
      }
-
+     return liste;
 }
 
 

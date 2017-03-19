@@ -17,8 +17,28 @@ FenetreRechercheAffichageTag::FenetreRechercheAffichageTag(GestionnaireDesTags* 
     tree->setModel(directory);
     tree->setRootIndex(index);
     gridLayout->addWidget(tree,1,0,7,4);
+
+    connect(textRechercheTag, SIGNAL(returnPressed()), this , SLOT(filtrerTag()));
+    connect(boutonRechercheTag, SIGNAL(clicked()), this , SLOT(filtrerTag()));
 }
 
 FenetreRechercheAffichageTag::~FenetreRechercheAffichageTag(){
 
+}
+
+//SLOT
+void FenetreRechercheAffichageTag::filtrerTag(){
+    QString tmp = this->textRechercheTag->text();
+    if(tmp.isNull()||tmp.isEmpty()){
+        QModelIndex index = directory->index(QDir::homePath());
+        tree->setModel(directory);
+        tree->setRootIndex(index);
+    }else{
+        QStringList headers;
+        headers << tr("Title");
+
+        QStringList list= this->gestionnaire->recupererLesFichiers(gestionnaire->getTag(tmp));
+        tagmodel = new TagModel(headers, list);
+        tree->setModel(tagmodel);
+    }
 }

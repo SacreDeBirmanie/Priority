@@ -8,7 +8,9 @@
 #include <QDirModel>
 #include <QTreeView>
 #include <QSplitter>
+
 #include "GestionnaireDesTags.hpp"
+#include "TagModel.hpp"
 
 class FenetreRechercheAffichageTag : public QWidget {
     Q_OBJECT
@@ -22,7 +24,7 @@ class FenetreRechercheAffichageTag : public QWidget {
         QGridLayout *gridLayout;
         QTreeView *tree;
         QDirModel *directory;
-        //TagModel *tagmodel;
+        TagModel *tagmodel;
 
 
     public :
@@ -30,7 +32,7 @@ class FenetreRechercheAffichageTag : public QWidget {
         ~FenetreRechercheAffichageTag();
 
     public slots :
-
+        void filtrerTag();
 };
 
 

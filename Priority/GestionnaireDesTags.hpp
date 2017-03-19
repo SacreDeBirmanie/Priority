@@ -10,10 +10,10 @@ class GestionnaireDesTags{
     private :
         QHash<QString, Tag*> lestags;
 
-        void recupererLesFichiers(Tag* tag);
+
         void ajouterTagByString(QString nom_tag);
         void supprimerTagListe(QString nom_tag);
-        Tag* getTag(QString nom);
+
 
     public :
         GestionnaireDesTags();
@@ -24,6 +24,8 @@ class GestionnaireDesTags{
         void detagger(QString nom_tag, QString nom_fichier);
         QStringList listeDesNomTags();
         int compterFichiers(QString nom_tag);
+        Tag* getTag(QString nom);
+        QStringList recupererLesFichiers(Tag* tag);
 
 };
 

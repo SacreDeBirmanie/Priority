@@ -22,7 +22,7 @@ class FenetreManagerDeTag : public QWidget {
         QLineEdit *textNomTag;
         QList<QPushButton*> listeBoutonsTags;
 
-        QVBoxLayout *positionnementManagerDesTags = new QVBoxLayout;
+        QVBoxLayout *positionnementManagerDesTags;
 
         QVBoxLayout *positionnementBarreAjoutTag = new QVBoxLayout;
         QGridLayout *positionnementTagsDisponibles = new QGridLayout;
@@ -31,7 +31,7 @@ class FenetreManagerDeTag : public QWidget {
         void effacerLayout(QLayout *item);
 
     public :
-        FenetreManagerDeTag(GestionnaireDesTags* gest,QWidget *parent);
+        FenetreManagerDeTag(GestionnaireDesTags* gest,QWidget *parent,QLayout *mainLayout);
         ~FenetreManagerDeTag();
 
     public slots :

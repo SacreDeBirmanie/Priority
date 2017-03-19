@@ -7,6 +7,7 @@
 #include <QGridLayout>
 #include <QDirModel>
 #include <QTreeView>
+#include <QSplitter>
 #include "GestionnaireDesTags.hpp"
 
 class FenetreRechercheAffichageTag : public QWidget {
@@ -25,7 +26,7 @@ class FenetreRechercheAffichageTag : public QWidget {
 
 
     public :
-        FenetreRechercheAffichageTag(GestionnaireDesTags* gest,QWidget *parent);
+        FenetreRechercheAffichageTag(GestionnaireDesTags* gest,QWidget *parent,QLayout *mainLayout);
         ~FenetreRechercheAffichageTag();
 
     public slots :

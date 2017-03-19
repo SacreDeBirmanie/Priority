@@ -23,10 +23,11 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     QSplitter vueApp;
     GestionnaireDesTags *tagger = new GestionnaireDesTags();
+    QVBoxLayout *mainLayout = new QVBoxLayout;
     tagger->recupererLesTags();
-
-    FenetreManagerDeTag* fenetreTag = new FenetreManagerDeTag(tagger,&vueApp);
-    //FenetreRechercheAffichageTag *vueRecherche = new FenetreRechercheAffichageTag(tagger,&vueApp);
+    vueApp.setLayout(mainLayout);
+    FenetreRechercheAffichageTag *vueRecherche = new FenetreRechercheAffichageTag(tagger,&vueApp, mainLayout);
+    FenetreManagerDeTag* fenetreTag = new FenetreManagerDeTag(tagger,&vueApp,mainLayout);
 
     vueApp.showMaximized();
     return app.exec();

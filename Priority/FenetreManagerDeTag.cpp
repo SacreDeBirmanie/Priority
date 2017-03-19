@@ -3,9 +3,10 @@
 #include <QStringList>
 #include <iostream>
 
-FenetreManagerDeTag::FenetreManagerDeTag(GestionnaireDesTags* gest,QWidget *parent) : QWidget(parent){
+FenetreManagerDeTag::FenetreManagerDeTag(GestionnaireDesTags* gest,QWidget *parent,QLayout *mainLayout) : QWidget(parent){
     gestionnaire = gest;
-    setLayout(this->positionnementManagerDesTags);
+    this->positionnementManagerDesTags = (QVBoxLayout*)mainLayout;
+    //setLayout(this->positionnementManagerDesTags);
 
     textNomTag = new QLineEdit();
     boutonCreerTag = new QPushButton("creer le tag");

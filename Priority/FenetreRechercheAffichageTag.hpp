@@ -13,6 +13,9 @@
 #include <QMessageBox>
 #include <QCompleter>
 #include <QLabel>
+#include <QMenu>
+#include <QDesktopServices>
+#include <QUrl>
 
 #include "GestionnaireDesTags.hpp"
 #include "TagModel.hpp"
@@ -36,6 +39,9 @@ class FenetreRechercheAffichageTag : public QWidget {
 
         QCompleter * completer;
 
+        QMenu* contextMenu;
+        QAction* ouvrirAction;
+
         void setUpDirTree();
         QStringList filtrerTag();
 
@@ -49,6 +55,8 @@ class FenetreRechercheAffichageTag : public QWidget {
     public slots :
         void filtrerTag_onclick();
         void clearfilter_onclick();
+        void ouvrirFichier();
+        void onCustomContextMenu(const QPoint &point);
 };
 
 

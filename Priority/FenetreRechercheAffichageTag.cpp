@@ -10,7 +10,7 @@ FenetreRechercheAffichageTag::FenetreRechercheAffichageTag(GestionnaireDesTags* 
     layout->addLayout(gridLayout);
     boutonRechercheTag = new QPushButton("Filtrer");
     textRechercheTag = new QLineEdit();
-    textRechercheTag->setPlaceholderText("Entrer le ou les tag(s) pour filtrer les fichiers");
+    textRechercheTag->setPlaceholderText("Entrez le ou les tag(s) pour filtrer les fichiers");
     boutonclear_filter = new QPushButton("Effacer");
     boutonclear_filter->setEnabled(false);
     gridLayout->addWidget(textRechercheTag,0,0,1,3);
@@ -23,6 +23,14 @@ FenetreRechercheAffichageTag::FenetreRechercheAffichageTag(GestionnaireDesTags* 
     tree = new QTreeView();
     tree->setSelectionMode( QAbstractItemView::MultiSelection );
     setUpDirTree();
+
+    contextMenu = new QMenu(tree);
+    contextMenu->addAction("Ouvrir", this, SLOT(ouvrirFichier()));
+    tree->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(tree, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(onCustomContextMenu(const QPoint &)));
+
+
+
     gridLayout->addWidget(tree,2,0,7,4);
 
     active_tag = new QVector<Tag*>();
@@ -124,4 +132,17 @@ QStringList FenetreRechercheAffichageTag::recupererSelection(){
 
 QTreeView* FenetreRechercheAffichageTag::getTreeView(){
     return tree;
+}
+
+void FenetreRechercheAffichageTag::onCustomContextMenu(const QPoint &point)
+{
+    contextMenu->exec(tree->mapToGlobal(point));
+}
+
+void FenetreRechercheAffichageTag::ouvrirFichier(){
+    QStringList fichiers = recupererSelection();
+
+    for(int i=0;i<fichiers.size();i++){
+        QDesktopServices::openUrl(QUrl(fichiers.at(i)));
+    }
 }

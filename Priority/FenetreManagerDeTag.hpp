@@ -12,21 +12,21 @@
 
 #include "GestionnaireDesTags.hpp"
 
-class FenetreManagerDeTag : public QWidget {
+class FenetreManagerDeTag : public QSplitter {
     Q_OBJECT
 
     private :
         GestionnaireDesTags* gestionnaire;
 
-        QWidget* actionsLies = new QWidget();
+        QSplitter* actionsLies = new QSplitter();
+        QWidget* espaceTags = new QWidget();
+        QWidget* espaceTagsEtCreation = new QWidget();
 
         QPushButton* boutonCreerTag;
         QPushButton* ajouterLesTagsALaSelection;
         QPushButton* supprimerLesTagsSelectionne;
         QLineEdit *textNomTag;
         QList<QPushButton*> listeBoutonsTags;
-
-        QVBoxLayout *positionnementManagerDesTags= new QVBoxLayout;
 
         QVBoxLayout *positionnementBarreAjoutTag = new QVBoxLayout;
         QGridLayout *positionnementTagsDisponibles = new QGridLayout;

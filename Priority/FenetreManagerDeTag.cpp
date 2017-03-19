@@ -1,32 +1,42 @@
 #include "FenetreManagerDeTag.hpp"
 
 #include <QStringList>
+#include <QMessageBox>
 #include <iostream>
 
-FenetreManagerDeTag::FenetreManagerDeTag(GestionnaireDesTags* gest,QWidget *parent) : QWidget(parent){
+FenetreManagerDeTag::FenetreManagerDeTag(GestionnaireDesTags* gest,QWidget *parent) : QSplitter(parent){
     gestionnaire = gest;
-    setLayout(this->positionnementManagerDesTags);
+    //setLayout(this->positionnementManagerDesTags);
+    this->setOrientation(Qt::Vertical);
 
-
+    actionsLies = new QSplitter(Qt::Vertical);
+    espaceTags = new QWidget();
+    espaceTagsEtCreation = new QWidget();
 
     textNomTag = new QLineEdit();
     boutonCreerTag = new QPushButton("creer le tag");
 
-    ajouterLesTagsALaSelection = new QPushButton("ajouter les tags à la selection", actionsLies);
-    ajouterLesTagsALaSelection->setStyleSheet("background-color: green;border : none");
+    this->addWidget(actionsLies);
+    this->addWidget(espaceTagsEtCreation);
 
-    supprimerLesTagsSelectionne = new QPushButton("ajouter les tags à la selection", actionsLies);
-    actionsLies->setFixedHeight(this->height()*0.5);
-
-
-    actionsLies->setStyleSheet("border: 3px solid black; border-radius: 10px;");
-
+    espaceTagsEtCreation->setLayout(positionnementBarreAjoutTag);
     positionnementBarreAjoutTag->addWidget(textNomTag);
     positionnementBarreAjoutTag->addWidget(boutonCreerTag);
+    positionnementBarreAjoutTag->addWidget(espaceTags);
 
-    positionnementManagerDesTags->addWidget(actionsLies);
-    positionnementManagerDesTags->addLayout(positionnementBarreAjoutTag);
-    positionnementManagerDesTags->addLayout(positionnementTagsDisponibles);
+
+
+
+    ajouterLesTagsALaSelection = new QPushButton("ajouter les tags à la selection");
+    actionsLies->addWidget(ajouterLesTagsALaSelection);
+
+    supprimerLesTagsSelectionne = new QPushButton("supprimer les tags sélectionnés");
+    actionsLies->addWidget(supprimerLesTagsSelectionne);
+
+
+
+    espaceTags->setLayout(positionnementTagsDisponibles);
+
     positionnerTags(4);
 
     connect(supprimerLesTagsSelectionne, SIGNAL(clicked()), this , SLOT(supprimerTags()));
@@ -114,11 +124,21 @@ void FenetreManagerDeTag::creerUnNouveauTag(){
 }
 
 void FenetreManagerDeTag::supprimerTags(){
-    QList<QPushButton*>::const_iterator i = listeBoutonsTags.begin();
-    while (i != listeBoutonsTags.end()) {
-        gestionnaire->supprimerTag((*i)->accessibleName());
-        i++;
-    }
+    int reponse = QMessageBox::question(this, "Suppression de tags", "vous allez supprimer les tags suivants suivants :", QMessageBox::Yes | QMessageBox::No);
+
+     if (reponse == QMessageBox::Yes){
+         QList<QPushButton*>::const_iterator i = listeBoutonsTags.begin();
+         while (i != listeBoutonsTags.end()) {
+             gestionnaire->supprimerTag((*i)->accessibleName());
+             i++;
+        }
+        QMessageBox::information(this, "suppression réussie", "Les tags ont été supprimé correctement");
+        }
+        else if (reponse == QMessageBox::No){
+            QMessageBox::critical(this, "suppression annulée", "La suppression des tags a été annulée.");
+        }
+
+
 
 }
 

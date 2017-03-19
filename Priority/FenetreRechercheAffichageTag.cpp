@@ -16,8 +16,10 @@ FenetreRechercheAffichageTag::FenetreRechercheAffichageTag(GestionnaireDesTags* 
     setUpDirTree();
     gridLayout->addWidget(tree,1,0,7,4);
 
-    connect(textRechercheTag, SIGNAL(returnPressed()), this , SLOT(filtrerTag()));
-    connect(boutonRechercheTag, SIGNAL(clicked()), this , SLOT(filtrerTag()));
+    active_tag = new QVector<Tag*>();
+
+    connect(textRechercheTag, SIGNAL(returnPressed()), this , SLOT(filtrerTag_onclick()));
+    connect(boutonRechercheTag, SIGNAL(clicked()), this , SLOT(filtrerTag_onclick()));
 }
 
 FenetreRechercheAffichageTag::~FenetreRechercheAffichageTag(){
@@ -33,17 +35,42 @@ void FenetreRechercheAffichageTag::setUpDirTree(){
     tree->setColumnHidden(3,true);
 }
 
+
+QStringList FenetreRechercheAffichageTag::filtrerTag(){
+    QStringList liste = this->gestionnaire->recupererLesFichiers(active_tag->at(0));
+    if(active_tag->size()==1){
+        return liste;
+    }else{
+        QVectorIterator<Tag*> i(*active_tag);
+        QSet<QString> intersection = liste.toSet();
+        while (i.hasNext()){
+            intersection = intersection.intersect(this->gestionnaire->recupererLesFichiers(i.next()).toSet());
+        }
+        return intersection.toList();
+    }
+    return liste;
+}
+
 //SLOT
-void FenetreRechercheAffichageTag::filtrerTag(){
+void FenetreRechercheAffichageTag::filtrerTag_onclick(){
     QString tmp = this->textRechercheTag->text();
     if(tmp.isNull()||tmp.isEmpty()){
+        active_tag->clear();
         setUpDirTree();
     }else{
-        QStringList headers;
-        headers << tr("Nom");
-
-        QStringList list= this->gestionnaire->recupererLesFichiers(gestionnaire->getTag(tmp));
-        tagmodel = new TagModel(headers, list);
-        tree->setModel(tagmodel);
+        Tag *tag = gestionnaire->getTag(tmp);
+        if(tag != NULL){
+            active_tag->append(tag);
+            QStringList list= filtrerTag();
+            QStringList headers;
+            headers << tr("Nom");
+            tagmodel = new TagModel(headers, list);
+            tree->setModel(tagmodel);
+        }else{
+            QMessageBox msgBox;
+            msgBox.setText("Tag inconnu");
+            msgBox.exec();
+            setUpDirTree();
+        }
     }
 }

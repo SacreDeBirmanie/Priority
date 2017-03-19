@@ -8,6 +8,9 @@
 #include <QDirModel>
 #include <QTreeView>
 #include <QSplitter>
+#include <QVector>
+#include <QVectorIterator>
+#include <QMessageBox>
 
 #include "GestionnaireDesTags.hpp"
 #include "TagModel.hpp"
@@ -25,8 +28,10 @@ class FenetreRechercheAffichageTag : public QWidget {
         QTreeView *tree;
         QDirModel *directory;
         TagModel *tagmodel;
+        QVector<Tag*> *active_tag;
 
         void setUpDirTree();
+        QStringList filtrerTag();
 
 
     public :
@@ -34,7 +39,7 @@ class FenetreRechercheAffichageTag : public QWidget {
         ~FenetreRechercheAffichageTag();
 
     public slots :
-        void filtrerTag();
+        void filtrerTag_onclick();
 };
 
 

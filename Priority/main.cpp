@@ -8,12 +8,10 @@
 #include <QUrl>
 #include <QPushButton>
 #include <QWidget>
+#include <QMainWindow>
 #include <iostream>
 
-#include "GestionnaireDesTags.hpp"
-#include "FenetreManagerDeTag.hpp"
-#include "FenetreRechercheAffichageTag.hpp"
-
+#include "FenetrePrincipale.hpp"
 
 
 
@@ -21,17 +19,8 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
-    QWidget vueApp;
-    GestionnaireDesTags *tagger = new GestionnaireDesTags();
 
-    QHBoxLayout *mainLayout = new QHBoxLayout();
-    tagger->recupererLesTags();
-    //Use to debug
-    //tagger->tagger("bob","Documents/URI.java");
-    vueApp.setLayout(mainLayout);
-    FenetreRechercheAffichageTag *vueRecherche = new FenetreRechercheAffichageTag(tagger,&vueApp, mainLayout);
-    FenetreManagerDeTag* fenetreTag = new FenetreManagerDeTag(tagger,&vueApp,mainLayout);
+    FenetrePrincipale fenetre;
 
-    vueApp.showMaximized();
     return app.exec();
 }

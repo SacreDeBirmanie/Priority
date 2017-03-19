@@ -1,10 +1,12 @@
 #include "FenetreRechercheAffichageTag.hpp"
+#include <iostream>
 
-FenetreRechercheAffichageTag::FenetreRechercheAffichageTag(GestionnaireDesTags* gest,QWidget *parent,QLayout *mainLayout) : QWidget(parent){
+FenetreRechercheAffichageTag::FenetreRechercheAffichageTag(GestionnaireDesTags* gest,QWidget *parent) : QWidget(parent){
     //QSplitter *splitterMain = (QSplitter*)parent;
     gestionnaire = gest;
     gridLayout = new QGridLayout();
-    QHBoxLayout *layout = (QHBoxLayout*)mainLayout;
+    QHBoxLayout *layout = new QHBoxLayout;
+    this->setLayout(layout);
     layout->addLayout(gridLayout);
     boutonRechercheTag = new QPushButton("Filtrer");
     textRechercheTag = new QLineEdit();
@@ -19,6 +21,7 @@ FenetreRechercheAffichageTag::FenetreRechercheAffichageTag(GestionnaireDesTags* 
     tags_filter->hide();
     directory = new QDirModel(parent);
     tree = new QTreeView();
+    tree->setSelectionMode( QAbstractItemView::MultiSelection );
     setUpDirTree();
     gridLayout->addWidget(tree,2,0,7,4);
 
@@ -93,6 +96,8 @@ void FenetreRechercheAffichageTag::filtrerTag_onclick(){
         }
         textRechercheTag->clear();
     }
+
+
 }
 
 void FenetreRechercheAffichageTag::clearfilter_onclick(){
@@ -101,4 +106,22 @@ void FenetreRechercheAffichageTag::clearfilter_onclick(){
     tags_filter->hide();
     boutonclear_filter->setEnabled(false);
     setUpDirTree();
+
+}
+
+
+QStringList FenetreRechercheAffichageTag::recupererSelection(){
+    QStringList laliste;
+    QModelIndexList selection = tree->selectionModel()->selectedRows();
+
+    for (int i = 0; i < selection.size(); i++){
+           laliste.append(selection[i].data().toString());
+           std::cout<<selection[i].data().toString().toStdString()<<std::endl;
+    }
+
+    return laliste;
+}
+
+QTreeView* FenetreRechercheAffichageTag::getTreeView(){
+    return tree;
 }

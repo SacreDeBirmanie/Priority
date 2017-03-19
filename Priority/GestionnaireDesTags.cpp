@@ -61,6 +61,28 @@ void GestionnaireDesTags::tagger(QString nom_tag, QString chemin_fichier){
         ;
 }
 
+void GestionnaireDesTags::tagger(QString nom_tag, QStringList noms_fichiers){
+
+    QHash<QString, Tag*>::const_iterator i = this->lestags.find(nom_tag);
+    if(i != this->lestags.end()){
+        QStringListIterator iterator(noms_fichiers);
+        GestionnaireEnregistrementTag *memoire = new GestionnaireEnregistrementTag(nom_tag);
+        while (iterator.hasNext()){
+                GestionnaireEnregistrementTag *memoire = new GestionnaireEnregistrementTag(nom_tag);
+                QString tmp = iterator.next().toLocal8Bit().constData();
+                if(i.value()->ajouterFichier(tmp)){
+                    memoire->tagger(tmp);
+                }
+                else
+                    ;
+        }
+    }
+    else
+        ;
+
+
+}
+
 void GestionnaireDesTags::detagger(QString nom_tag, QString chemin_fichier){
 
     GestionnaireEnregistrementTag *memoire = new GestionnaireEnregistrementTag(nom_tag);

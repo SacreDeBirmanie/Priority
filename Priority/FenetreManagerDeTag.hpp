@@ -18,11 +18,15 @@ class FenetreManagerDeTag : public QWidget {
     private :
         GestionnaireDesTags* gestionnaire;
 
+        QWidget* actionsLies = new QWidget();
+
         QPushButton* boutonCreerTag;
+        QPushButton* ajouterLesTagsALaSelection;
+        QPushButton* supprimerLesTagsSelectionne;
         QLineEdit *textNomTag;
         QList<QPushButton*> listeBoutonsTags;
 
-        QHBoxLayout *positionnementManagerDesTags;
+        QVBoxLayout *positionnementManagerDesTags= new QVBoxLayout;
 
         QVBoxLayout *positionnementBarreAjoutTag = new QVBoxLayout;
         QGridLayout *positionnementTagsDisponibles = new QGridLayout;
@@ -31,11 +35,16 @@ class FenetreManagerDeTag : public QWidget {
         void effacerLayout(QLayout *item);
 
     public :
-        FenetreManagerDeTag(GestionnaireDesTags* gest,QWidget *parent,QLayout *mainLayout);
+        FenetreManagerDeTag(GestionnaireDesTags* gest,QWidget *parent = 0);
         ~FenetreManagerDeTag();
+        QPushButton* getAjouterLesTagsALaSelection();
+        QStringList recupererBoutonsSelectionne();
+        void update();
 
     public slots :
         void creerUnNouveauTag();
+        void supprimerTags();
+        void modificationBoutonTag();
 
 };
 

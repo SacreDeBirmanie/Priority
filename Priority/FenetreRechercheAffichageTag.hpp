@@ -34,15 +34,17 @@ class FenetreRechercheAffichageTag : public QWidget {
         TagModel *tagmodel;
         QVector<Tag*> *active_tag;
 
-         QCompleter * completer;
+        QCompleter * completer;
 
         void setUpDirTree();
         QStringList filtrerTag();
 
 
     public :
-        FenetreRechercheAffichageTag(GestionnaireDesTags* gest,QWidget *parent,QLayout *mainLayout);
+        FenetreRechercheAffichageTag(GestionnaireDesTags* gest,QWidget *parent = 0);
         ~FenetreRechercheAffichageTag();
+        QStringList recupererSelection();
+        QTreeView* getTreeView();
 
     public slots :
         void filtrerTag_onclick();

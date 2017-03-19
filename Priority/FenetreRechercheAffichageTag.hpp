@@ -26,6 +26,8 @@ class FenetreRechercheAffichageTag : public QWidget {
         QDirModel *directory;
         TagModel *tagmodel;
 
+        void setUpDirTree();
+
 
     public :
         FenetreRechercheAffichageTag(GestionnaireDesTags* gest,QWidget *parent,QLayout *mainLayout);

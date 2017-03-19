@@ -5,7 +5,7 @@
 
 FenetreManagerDeTag::FenetreManagerDeTag(GestionnaireDesTags* gest,QWidget *parent,QLayout *mainLayout) : QWidget(parent){
     gestionnaire = gest;
-    this->positionnementManagerDesTags = (QVBoxLayout*)mainLayout;
+    this->positionnementManagerDesTags = (QHBoxLayout*)mainLayout;
     //setLayout(this->positionnementManagerDesTags);
 
     textNomTag = new QLineEdit();

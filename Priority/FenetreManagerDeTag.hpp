@@ -22,7 +22,7 @@ class FenetreManagerDeTag : public QWidget {
         QLineEdit *textNomTag;
         QList<QPushButton*> listeBoutonsTags;
 
-        QVBoxLayout *positionnementManagerDesTags;
+        QHBoxLayout *positionnementManagerDesTags;
 
         QVBoxLayout *positionnementBarreAjoutTag = new QVBoxLayout;
         QGridLayout *positionnementTagsDisponibles = new QGridLayout;

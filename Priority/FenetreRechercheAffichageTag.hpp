@@ -11,6 +11,8 @@
 #include <QVector>
 #include <QVectorIterator>
 #include <QMessageBox>
+#include <QCompleter>
+#include <QLabel>
 
 #include "GestionnaireDesTags.hpp"
 #include "TagModel.hpp"
@@ -23,12 +25,15 @@ class FenetreRechercheAffichageTag : public QWidget {
 
         QPushButton *boutonRechercheTag;
         QLineEdit *textRechercheTag;
+        QLabel *tags_filter;
 
         QGridLayout *gridLayout;
         QTreeView *tree;
         QDirModel *directory;
         TagModel *tagmodel;
         QVector<Tag*> *active_tag;
+
+         QCompleter * completer;
 
         void setUpDirTree();
         QStringList filtrerTag();

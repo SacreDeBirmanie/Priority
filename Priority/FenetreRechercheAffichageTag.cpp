@@ -11,12 +11,19 @@ FenetreRechercheAffichageTag::FenetreRechercheAffichageTag(GestionnaireDesTags* 
     textRechercheTag->setPlaceholderText("Entrer le ou les tag(s) pour filtrer les fichiers");
     gridLayout->addWidget(textRechercheTag,0,0,1,3);
     gridLayout->addWidget(boutonRechercheTag,0,3,1,1);
+    tags_filter = new QLabel();
+    gridLayout->addWidget(tags_filter,1,0,1,3);
+    tags_filter->hide();
     directory = new QDirModel(parent);
     tree = new QTreeView();
     setUpDirTree();
-    gridLayout->addWidget(tree,1,0,7,4);
+    gridLayout->addWidget(tree,2,0,7,4);
 
     active_tag = new QVector<Tag*>();
+
+    completer = new QCompleter(gestionnaire->listeDesNomTags(), this);
+    completer->setCaseSensitivity(Qt::CaseInsensitive);
+    textRechercheTag->setCompleter(completer);
 
     connect(textRechercheTag, SIGNAL(returnPressed()), this , SLOT(filtrerTag_onclick()));
     connect(boutonRechercheTag, SIGNAL(clicked()), this , SLOT(filtrerTag_onclick()));
@@ -39,13 +46,20 @@ void FenetreRechercheAffichageTag::setUpDirTree(){
 QStringList FenetreRechercheAffichageTag::filtrerTag(){
     QStringList liste = this->gestionnaire->recupererLesFichiers(active_tag->at(0));
     if(active_tag->size()==1){
+        tags_filter->setText("Tag : "+active_tag->at(0)->getNom());
+        tags_filter->show();
         return liste;
     }else{
         QVectorIterator<Tag*> i(*active_tag);
         QSet<QString> intersection = liste.toSet();
+        QString filter = "Tags : ";
         while (i.hasNext()){
-            intersection = intersection.intersect(this->gestionnaire->recupererLesFichiers(i.next()).toSet());
+            Tag* t = i.next();
+            filter.append(t->getNom()+" ");
+            intersection = intersection.intersect(this->gestionnaire->recupererLesFichiers(t).toSet());
         }
+        tags_filter->setText(filter);
+        tags_filter->show();
         return intersection.toList();
     }
     return liste;
@@ -57,6 +71,8 @@ void FenetreRechercheAffichageTag::filtrerTag_onclick(){
     if(tmp.isNull()||tmp.isEmpty()){
         active_tag->clear();
         setUpDirTree();
+        tags_filter->setText("");
+        tags_filter->hide();
     }else{
         Tag *tag = gestionnaire->getTag(tmp);
         if(tag != NULL){

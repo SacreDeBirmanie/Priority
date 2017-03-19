@@ -9,10 +9,13 @@ FenetreRechercheAffichageTag::FenetreRechercheAffichageTag(GestionnaireDesTags* 
     boutonRechercheTag = new QPushButton("Filtrer");
     textRechercheTag = new QLineEdit();
     textRechercheTag->setPlaceholderText("Entrer le ou les tag(s) pour filtrer les fichiers");
+    boutonclear_filter = new QPushButton("Effacer");
+    boutonclear_filter->setEnabled(false);
     gridLayout->addWidget(textRechercheTag,0,0,1,3);
     gridLayout->addWidget(boutonRechercheTag,0,3,1,1);
     tags_filter = new QLabel();
     gridLayout->addWidget(tags_filter,1,0,1,3);
+    gridLayout->addWidget(boutonclear_filter,1,3,1,1);
     tags_filter->hide();
     directory = new QDirModel(parent);
     tree = new QTreeView();
@@ -27,6 +30,8 @@ FenetreRechercheAffichageTag::FenetreRechercheAffichageTag(GestionnaireDesTags* 
 
     connect(textRechercheTag, SIGNAL(returnPressed()), this , SLOT(filtrerTag_onclick()));
     connect(boutonRechercheTag, SIGNAL(clicked()), this , SLOT(filtrerTag_onclick()));
+
+    connect(boutonclear_filter, SIGNAL(clicked()), this , SLOT(clearfilter_onclick()));
 }
 
 FenetreRechercheAffichageTag::~FenetreRechercheAffichageTag(){
@@ -68,12 +73,7 @@ QStringList FenetreRechercheAffichageTag::filtrerTag(){
 //SLOT
 void FenetreRechercheAffichageTag::filtrerTag_onclick(){
     QString tmp = this->textRechercheTag->text();
-    if(tmp.isNull()||tmp.isEmpty()){
-        active_tag->clear();
-        setUpDirTree();
-        tags_filter->setText("");
-        tags_filter->hide();
-    }else{
+    if(!tmp.isNull()&&!tmp.isEmpty()){
         Tag *tag = gestionnaire->getTag(tmp);
         if(tag != NULL){
             active_tag->append(tag);
@@ -82,11 +82,21 @@ void FenetreRechercheAffichageTag::filtrerTag_onclick(){
             headers << tr("Nom");
             tagmodel = new TagModel(headers, list);
             tree->setModel(tagmodel);
+            boutonclear_filter->setEnabled(true);
         }else{
             QMessageBox msgBox;
             msgBox.setText("Tag inconnu");
             msgBox.exec();
             setUpDirTree();
         }
+        textRechercheTag->clear();
     }
+}
+
+void FenetreRechercheAffichageTag::clearfilter_onclick(){
+    active_tag->clear();
+    tags_filter->setText("");
+    tags_filter->hide();
+    boutonclear_filter->setEnabled(false);
+    setUpDirTree();
 }

@@ -26,6 +26,7 @@ class FenetreRechercheAffichageTag : public QWidget {
         QPushButton *boutonRechercheTag;
         QLineEdit *textRechercheTag;
         QLabel *tags_filter;
+        QPushButton *boutonclear_filter;
 
         QGridLayout *gridLayout;
         QTreeView *tree;
@@ -45,6 +46,7 @@ class FenetreRechercheAffichageTag : public QWidget {
 
     public slots :
         void filtrerTag_onclick();
+        void clearfilter_onclick();
 };
 
 

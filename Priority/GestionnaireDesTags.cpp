@@ -106,6 +106,18 @@ QStringList GestionnaireDesTags::listeDesNomTags(){
     return laliste;
 }
 
+QStringList listeDesNomTags(QString nom_fichier){
+    QHash<QString, Tag*>::const_iterator i = this->lestags.begin();
+    QStringList laliste;
+    while (i != this->lestags.end()){
+            if(i.value()->getFichiers().contains(nom_fichier))
+                laliste.append(i.value()->getNom());
+            i++;
+    }
+
+    return laliste;
+}
+
 int  GestionnaireDesTags::compterFichiers(QString nom_tag){
     QHash<QString, Tag*>::iterator i = this->lestags.find(nom_tag);
     int tmp = 0;

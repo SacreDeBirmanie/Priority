@@ -18,6 +18,7 @@
 #include <QUrl>
 
 #include "GestionnaireDesTags.hpp"
+#include "FenetreDetaggerFichier.hpp"
 #include "TagModel.hpp"
 
 class FenetreRechercheAffichageTag : public QWidget {
@@ -26,10 +27,13 @@ class FenetreRechercheAffichageTag : public QWidget {
     private :
         GestionnaireDesTags* gestionnaire;
 
+        FenetreDetaggerFichier* fenetreDetagger;
+
         QPushButton *boutonRechercheTag;
         QLineEdit *textRechercheTag;
         QLabel *tags_filter;
         QPushButton *boutonclear_filter;
+        QPushButton* deselectionTree;
 
         QGridLayout *gridLayout;
         QTreeView *tree;
@@ -57,6 +61,7 @@ class FenetreRechercheAffichageTag : public QWidget {
     public slots :
         void filtrerTag_onclick();
         void clearfilter_onclick();
+        void tout_deselectionner();
         void ouvrirFichier();
         void onCustomContextMenu(const QPoint &point);
 };

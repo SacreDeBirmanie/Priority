@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     FenetreRechercheAffichageTag.cpp \
     TagModel.cpp \
     TagItem.cpp \
-    FenetrePrincipale.cpp
+    FenetrePrincipale.cpp \
+    FenetreDetaggerFichier.cpp
 
 RESOURCES += qml.qrc
 
@@ -48,4 +49,5 @@ HEADERS += \
     FenetreRechercheAffichageTag.hpp \
     TagModel.hpp \
     TagItem.hpp \
-    FenetrePrincipale.hpp
+    FenetrePrincipale.hpp \
+    FenetreDetaggerFichier.hpp

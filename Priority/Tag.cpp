@@ -12,6 +12,10 @@ void Tag::setNom(QString n){
     this->nom = n;
 }
 
+void Tag::getFichiers(){
+    return this->fichiers;
+}
+
 int Tag::compterFichiers(){
     return this->fichiers.count();
 }

@@ -13,8 +13,10 @@ FenetreRechercheAffichageTag::FenetreRechercheAffichageTag(GestionnaireDesTags* 
     textRechercheTag->setPlaceholderText("Entrez le ou les tag(s) pour filtrer les fichiers");
     boutonclear_filter = new QPushButton("Effacer");
     boutonclear_filter->setEnabled(false);
+    deselectionTree = new QPushButton("Tout déselectionner");
     gridLayout->addWidget(textRechercheTag,0,0,1,3);
     gridLayout->addWidget(boutonRechercheTag,0,3,1,1);
+    gridLayout->addWidget(deselectionTree,2,0,1,1);
     tags_filter = new QLabel();
     gridLayout->addWidget(tags_filter,1,0,1,3);
     gridLayout->addWidget(boutonclear_filter,1,3,1,1);
@@ -26,12 +28,13 @@ FenetreRechercheAffichageTag::FenetreRechercheAffichageTag(GestionnaireDesTags* 
 
     contextMenu = new QMenu(tree);
     contextMenu->addAction("Ouvrir", this, SLOT(ouvrirFichier()));
+    contextMenu->addAction("enlever tags", this, SLOT(enleverTags()));
     tree->setContextMenuPolicy(Qt::CustomContextMenu);
     connect(tree, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(onCustomContextMenu(const QPoint &)));
 
 
 
-    gridLayout->addWidget(tree,2,0,7,4);
+    gridLayout->addWidget(tree,3,0,7,4);
 
     active_tag = new QVector<Tag*>();
 
@@ -39,9 +42,11 @@ FenetreRechercheAffichageTag::FenetreRechercheAffichageTag(GestionnaireDesTags* 
     completer->setCaseSensitivity(Qt::CaseInsensitive);
     textRechercheTag->setCompleter(completer);
 
+    fenetreDetagger = new FenetreDetaggerFichier();
+
     connect(textRechercheTag, SIGNAL(returnPressed()), this , SLOT(filtrerTag_onclick()));
     connect(boutonRechercheTag, SIGNAL(clicked()), this , SLOT(filtrerTag_onclick()));
-
+    connect(deselectionTree, SIGNAL(clicked()), this , SLOT(tout_deselectionner()));
     connect(boutonclear_filter, SIGNAL(clicked()), this , SLOT(clearfilter_onclick()));
 }
 
@@ -136,6 +141,10 @@ QStringList FenetreRechercheAffichageTag::recupererSelection(){
     return laliste;
 }
 
+void FenetreRechercheAffichageTag::tout_deselectionner(){
+    tree->clearSelection();
+}
+
 QTreeView* FenetreRechercheAffichageTag::getTreeView(){
     return tree;
 }
@@ -151,4 +160,13 @@ void FenetreRechercheAffichageTag::ouvrirFichier(){
     for(int i=0;i<fichiers.size();i++){
         QDesktopServices::openUrl(QUrl(fichiers.at(i)));
     }
+}
+
+void FenetreRechercheAffichageTag::enleverTags(){
+    QStringList fichiers = recupererSelection();
+
+    fenetreDetagger->genererFenetre(fichiers);
+
+
+
 }

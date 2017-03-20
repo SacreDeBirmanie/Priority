@@ -47,6 +47,7 @@ FenetreRechercheAffichageTag::FenetreRechercheAffichageTag(GestionnaireDesTags* 
     textRechercheTag->setCompleter(completer);
 
     fenetreDetagger = new FenetreDetaggerFichier(gestionnaire);
+    connect(fenetreDetagger, SIGNAL(close()), this, SLOT(modificationTags()));
 
 
     connect(textRechercheTag, SIGNAL(returnPressed()), this , SLOT(filtrerTag_onclick()));

@@ -101,12 +101,7 @@ void GestionnaireDesTags::detagger(QString nom_tag, QStringList fichiers){
         QStringListIterator iterator(fichiers);
         GestionnaireEnregistrementTag *memoire = new GestionnaireEnregistrementTag(nom_tag);
         while (iterator.hasNext()){
-                QString tmp = iterator.next().toLocal8Bit().constData();
-                if(i.value()->supprimerFichier(tmp)){
-                    memoire->detagger(tmp);
-                }
-                else
-                    ;
+                detagger(nom_tag, iterator.next().toLocal8Bit().constData());
         }
     }
     else

@@ -46,6 +46,7 @@ void FenetreDetaggerFichier::genererFenetre(QStringList fich){
                     listeDesTags.append((*j).toLocal8Bit().constData());
                     QPushButton* tmp = new QPushButton ((*j).toLocal8Bit().constData());
                     listeBoutonsTags.append(tmp);
+                    tmp->setAccessibleName((*j).toLocal8Bit().constData());
                     tmp->setCheckable(true);
                     tmp->setChecked(false);
                     tmp->setStyleSheet("background-color: white;");
@@ -86,6 +87,7 @@ void FenetreDetaggerFichier::supprimerLaSelection(){
             gestionnaire->detagger((*i)->accessibleName(),fichiers);
         i++;
     }
+    this->close();
 }
 
 void FenetreDetaggerFichier::nettoyerFenetre(){

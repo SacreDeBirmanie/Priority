@@ -67,6 +67,10 @@ class FenetreRechercheAffichageTag : public QWidget {
         void ouvrirFichier();
         void onCustomContextMenu(const QPoint &point);
         void enleverTags();
+
+     signals :
+        modificationTags();
+
 };
 
 

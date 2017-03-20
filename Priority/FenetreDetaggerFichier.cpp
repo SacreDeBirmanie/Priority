@@ -6,30 +6,46 @@
 #include <QGraphicsView>
 #include <iostream>
 
-FenetreDetaggerFichier::FenetreDetaggerFichier(){
+FenetreDetaggerFichier::FenetreDetaggerFichier(GestionnaireDesTags* gest){
+    gestionnaire = gest;
     this->setOrientation(Qt::Vertical);
     layout = new QGridLayout();
 
-    revenirFenetrePrincipal = new QPushButton();
-    supprimerSelection = new QPushButton();
+    choix = new QWidget;
+    revenirFenetrePrincipal = new QPushButton("revenir au menu principal");
+    supprimerSelection = new QPushButton("supprimer la selection");
+    QHBoxLayout* layoutChoix = new QHBoxLayout;
+    choix->setLayout(layoutChoix);
+    layoutChoix->addWidget(revenirFenetrePrincipal);
+    layoutChoix->addWidget(supprimerSelection);
+    this->addWidget(choix);
+
+
+
+    connect(revenirFenetrePrincipal, SIGNAL(clicked()), this , SLOT(close()));
+    connect(supprimerSelection, SIGNAL(clicked()), this , SLOT(supprimerLaSelection()));
 }
 
 void FenetreDetaggerFichier::genererFenetre(QStringList fich){
     this->fichiers = fich;
     QStringList::iterator i = fichiers.begin();
+    std::cout<<"ahah"<<std::endl;
     QWidget* objetTags = new QWidget();
     this->addWidget(objetTags);
     objetTags->setLayout(layout);
 
-        std::cout<<"lol"<<std::endl;
         while (i != fichiers.end()) {
-            std::cout<<(*i).toLocal8Bit().constData()<<std::endl;
-            QStringList listeDesTags = gestionnaire->listeDesNomTags((*i).toLocal8Bit().constData());
-            std::cout<<"bre"<<std::endl;
-            QStringList::const_iterator j = listeDesTags.begin();
-            while (j != listeDesTags.end()) {
-                std::cout<<"lol"<<std::endl;
+            QStringList liste_tmp = gestionnaire->listeDesNomTags((*i).toLocal8Bit().constData());
+            QStringList listeDesTags;
+            QStringList::const_iterator j = liste_tmp.constBegin();
+
+            int placementHauteur = 0;
+            int placementLargeur = 0;
+            int largeurMax = 5;
+
+            while (j != liste_tmp.end()) {
                 if(!listeDesTags.contains((*j).toLocal8Bit().constData())){
+                    listeDesTags.append((*j).toLocal8Bit().constData());
                     QPushButton* tmp = new QPushButton ((*j).toLocal8Bit().constData());
                     listeBoutonsTags.append(tmp);
                     tmp->setCheckable(true);
@@ -37,6 +53,14 @@ void FenetreDetaggerFichier::genererFenetre(QStringList fich){
                     tmp->setStyleSheet("background-color: white;");
                     connect(tmp,SIGNAL(clicked()),this,SLOT(modificationBoutonTag()));
                     layout->addWidget(tmp);
+
+                    if(placementLargeur<largeurMax-1){
+                        placementLargeur++;
+                    }
+                    else{
+                        placementLargeur = 0;
+                        placementHauteur++;
+                    }
 
                 }
                 j++;

@@ -35,6 +35,7 @@ class FenetreRechercheAffichageTag : public QWidget {
         QLabel *tags_filter;
         QPushButton *boutonclear_filter;
         QPushButton* deselectionTree;
+        QPushButton* detagger;
 
         QGridLayout *gridLayout;
         QTreeView *tree;

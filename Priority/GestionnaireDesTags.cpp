@@ -31,6 +31,7 @@ void GestionnaireDesTags::creerUnNouveauTag(QString nom_tag){
     else{
         ;
     }
+
 }
 
 void GestionnaireDesTags::supprimerTag(QString nom_tag){
@@ -124,20 +125,18 @@ QStringList GestionnaireDesTags::listeDesNomTags(){
 }
 
 QStringList GestionnaireDesTags::listeDesNomTags(QString nom_fichier){
-    std::cout<<"hhhhhhhhhh"<<std::endl;
-    std::cout<<lestags.size()<<std::endl;
+
     QHash<QString, Tag*>::const_iterator i = lestags.constBegin();
-    std::cout<<"qqsdqdqsd"<<std::endl;
     QStringList laliste;
 
     while (i != lestags.end()){
-        std::cout<<"lqqqol"<<std::endl;
             Tag* tmp = i.value();
-            if(tmp->getFichiers().contains(nom_fichier))
+            if(tmp->getFichiers().contains(nom_fichier)){
                 laliste.append(tmp->getNom());
-            i++;
+            }else
+             i++;
     }
-
+    std::cout<<laliste.size()<<std::endl;
     return laliste;
 }
 

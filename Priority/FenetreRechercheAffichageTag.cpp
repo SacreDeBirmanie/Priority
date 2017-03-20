@@ -15,12 +15,15 @@ FenetreRechercheAffichageTag::FenetreRechercheAffichageTag(GestionnaireDesTags* 
     boutonclear_filter = new QPushButton("Effacer");
     boutonclear_filter->setEnabled(false);
     deselectionTree = new QPushButton("Tout déselectionner");
+    detagger = new QPushButton("detagger la selection");
     gridLayout->addWidget(textRechercheTag,0,0,1,3);
     gridLayout->addWidget(boutonRechercheTag,0,3,1,1);
     gridLayout->addWidget(deselectionTree,2,0,1,1);
+    gridLayout->addWidget(detagger,2,1,1,1);
     tags_filter = new QLabel();
     gridLayout->addWidget(tags_filter,1,0,1,3);
     gridLayout->addWidget(boutonclear_filter,1,3,1,1);
+
     tags_filter->hide();
     directory = new QDirModel(parent);
     tree = new QTreeView();
@@ -43,12 +46,14 @@ FenetreRechercheAffichageTag::FenetreRechercheAffichageTag(GestionnaireDesTags* 
     completer->setCaseSensitivity(Qt::CaseInsensitive);
     textRechercheTag->setCompleter(completer);
 
-    fenetreDetagger = new FenetreDetaggerFichier();
+    fenetreDetagger = new FenetreDetaggerFichier(gestionnaire);
+
 
     connect(textRechercheTag, SIGNAL(returnPressed()), this , SLOT(filtrerTag_onclick()));
     connect(boutonRechercheTag, SIGNAL(clicked()), this , SLOT(filtrerTag_onclick()));
     connect(deselectionTree, SIGNAL(clicked()), this , SLOT(tout_deselectionner()));
     connect(boutonclear_filter, SIGNAL(clicked()), this , SLOT(clearfilter_onclick()));
+    connect(detagger, SIGNAL(clicked()), this , SLOT(enleverTags()));
 }
 
 FenetreRechercheAffichageTag::~FenetreRechercheAffichageTag(){

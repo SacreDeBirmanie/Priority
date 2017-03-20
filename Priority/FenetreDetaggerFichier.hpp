@@ -15,6 +15,7 @@ class FenetreDetaggerFichier : public QSplitter {
     private :
         GestionnaireDesTags* gestionnaire;
         QStringList fichiers;
+        QWidget* choix;
 
         QGridLayout* layout;
         QList<QPushButton*> listeBoutonsTags;
@@ -24,10 +25,10 @@ class FenetreDetaggerFichier : public QSplitter {
 
 
     public :
-        FenetreDetaggerFichier();
+        FenetreDetaggerFichier(GestionnaireDesTags* gest);
 
         void genererFenetre(QStringList fich);
-        void supprimerLaSelection();
+
 
         void nettoyerFenetre();
 
@@ -36,5 +37,6 @@ class FenetreDetaggerFichier : public QSplitter {
 
     public slots :
         void modificationBoutonTag();
+        void supprimerLaSelection();
 };
 #endif // FENETREDETAGGERFICHIER_HPP

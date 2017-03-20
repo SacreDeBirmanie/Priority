@@ -114,7 +114,7 @@ void GestionnaireDesTags::detagger(QString nom_tag, QStringList fichiers){
 }
 
 QStringList GestionnaireDesTags::listeDesNomTags(){
-    QHash<QString, Tag*>::const_iterator i = this->lestags.constBegin();
+    QHash<QString, Tag*>::iterator i = this->lestags.begin();
     QStringList laliste;
     while (i != this->lestags.end()){
             laliste.append(i.value()->getNom());
@@ -133,7 +133,7 @@ QStringList GestionnaireDesTags::listeDesNomTags(QString nom_fichier){
             Tag* tmp = i.value();
             if(tmp->getFichiers().contains(nom_fichier)){
                 laliste.append(tmp->getNom());
-            }else
+            }
              i++;
     }
     std::cout<<laliste.size()<<std::endl;

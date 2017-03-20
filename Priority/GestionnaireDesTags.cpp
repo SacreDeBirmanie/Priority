@@ -113,7 +113,7 @@ void GestionnaireDesTags::detagger(QString nom_tag, QStringList fichiers){
 }
 
 QStringList GestionnaireDesTags::listeDesNomTags(){
-    QHash<QString, Tag*>::iterator i = this->lestags.begin();
+    QHash<QString, Tag*>::const_iterator i = this->lestags.constBegin();
     QStringList laliste;
     while (i != this->lestags.end()){
             laliste.append(i.value()->getNom());
@@ -124,9 +124,9 @@ QStringList GestionnaireDesTags::listeDesNomTags(){
 }
 
 QStringList GestionnaireDesTags::listeDesNomTags(QString nom_fichier){
-    std::cout<<"aaaaaa"<<std::endl;
+    std::cout<<"hhhhhhhhhh"<<std::endl;
     std::cout<<lestags.size()<<std::endl;
-    QHash<QString, Tag*>::iterator i = lestags.begin();
+    QHash<QString, Tag*>::const_iterator i = lestags.constBegin();
     std::cout<<"qqsdqdqsd"<<std::endl;
     QStringList laliste;
 
@@ -142,7 +142,7 @@ QStringList GestionnaireDesTags::listeDesNomTags(QString nom_fichier){
 }
 
 int  GestionnaireDesTags::compterFichiers(QString nom_tag){
-    QHash<QString, Tag*>::iterator i = this->lestags.find(nom_tag);
+    QHash<QString, Tag*>::const_iterator i = this->lestags.find(nom_tag);
     int tmp = 0;
     int count = 0;
     while (i != this->lestags.end() && i.key() == nom_tag && count<3) {
@@ -155,7 +155,7 @@ int  GestionnaireDesTags::compterFichiers(QString nom_tag){
 
 //private
 Tag* GestionnaireDesTags::getTag(QString nom_tag){
-     QHash<QString, Tag*>::iterator i = this->lestags.find(nom_tag);
+     QHash<QString, Tag*>::const_iterator i = this->lestags.find(nom_tag);
      while (i != this->lestags.end() && i.key() == nom_tag) {
          return i.value();
      }

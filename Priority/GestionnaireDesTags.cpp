@@ -19,7 +19,7 @@ void GestionnaireDesTags::recupererLesTags(){
     }
 }
 
-void GestionnaireDesTags::creerUnNouveauTag(QString nom_tag){
+bool GestionnaireDesTags::creerUnNouveauTag(QString nom_tag){
     QHash<QString, Tag*>::iterator i = this->lestags.find(nom_tag);
     if(i == this->lestags.end()){
         //mise a jour dans la mémoire
@@ -27,9 +27,10 @@ void GestionnaireDesTags::creerUnNouveauTag(QString nom_tag){
 
         //mise a jour de la liste
         this->ajouterTagByString(nom_tag);
+        return true;
     }
     else{
-        ;
+        return false;
     }
 
 }

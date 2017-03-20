@@ -18,7 +18,7 @@ class GestionnaireDesTags{
     public :
         GestionnaireDesTags();
         void recupererLesTags();
-        void creerUnNouveauTag(QString nom);
+        bool creerUnNouveauTag(QString nom);
         void supprimerTag(QString nom_tag);
         void tagger(QString nom_tag, QString nom_fichier);
         void tagger(QString nom_tag, QStringList noms_fichiers);

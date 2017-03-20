@@ -124,7 +124,6 @@ QStringList FenetreRechercheAffichageTag::recupererSelection(){
 
     for (int i = 0; i < selection.size(); i++){
            laliste.append(selection[i].data().toString());
-           std::cout<<selection[i].data().toString().toStdString()<<std::endl;
     }
 
     return laliste;

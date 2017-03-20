@@ -123,34 +123,30 @@ void FenetreManagerDeTag::creerUnNouveauTag(){
 }
 
 void FenetreManagerDeTag::supprimerTags(){
-    std::cout<<"am"<<std::endl;
     QString liste;
     QList<QPushButton*>::const_iterator i = listeBoutonsTags.begin();
-     std::cout<<"sqqqqqsqam"<<std::endl;
     while (i != listeBoutonsTags.end()) {
-        std::cout<<"sqqqqqqqqqqqqsrrrrrrqam"<<std::endl;
         if((*i)->isChecked()){
-            std::cout<<(*i)->accessibleName().toStdString()<<std::endl;
-           gestionnaire->supprimerTag((*i)->accessibleName());
-           std::cout<<"iii"<<std::endl;
+           liste += "   " + (*i)->accessibleName();
         }
         i++;
    }
-     std::cout<<"sqsqam"<<std::endl;
-    int reponse = QMessageBox::question(this, "Suppression de tags", "vous allez supprimer les tags suivants suivants :\n yes", QMessageBox::Yes | QMessageBox::No);
-
-     if (reponse == QMessageBox::Yes){
+    int reponse = QMessageBox::question(this, "Suppression de tags", "vous allez supprimer les tags suivants suivants :\n"+ liste + "\n" + "Voulez-vous continuer ?", QMessageBox::Yes | QMessageBox::No);
+    if (reponse == QMessageBox::Yes){
+        i = listeBoutonsTags.begin();
+        while (i != listeBoutonsTags.end()) {
+            if((*i)->isChecked()){
+               this->gestionnaire->supprimerTag((*i)->accessibleName());
+            }
+            i++;
+       }
 
         QMessageBox::information(this, "suppression réussie", "Les tags ont été supprimé correctement");
         }
         else if (reponse == QMessageBox::No){
             QMessageBox::critical(this, "suppression annulée", "La suppression des tags a été annulée.");
         }
-     std::cout<<"ok"<<std::endl;
         this->positionnerTags(4);
-     std::cout<<"tyok"<<std::endl;
-
-
 }
 
 void FenetreManagerDeTag::modificationBoutonTag(){

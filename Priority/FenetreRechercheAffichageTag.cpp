@@ -50,6 +50,7 @@ FenetreRechercheAffichageTag::~FenetreRechercheAffichageTag(){
 }
 
 void FenetreRechercheAffichageTag::setUpDirTree(){
+    isDirModel = true;
     tree->setModel(directory);
     tree->setRootIndex(directory->index(QDir::homePath()));
     tree->setColumnWidth(0,700);
@@ -95,6 +96,7 @@ void FenetreRechercheAffichageTag::filtrerTag_onclick(){
                 tagmodel = new TagModel(headers, list);
                 tree->setModel(tagmodel);
                 boutonclear_filter->setEnabled(true);
+                isDirModel = false;
             }
         }else{
             QMessageBox msgBox;
@@ -121,10 +123,14 @@ void FenetreRechercheAffichageTag::clearfilter_onclick(){
 QStringList FenetreRechercheAffichageTag::recupererSelection(){
     QStringList laliste;
     QModelIndexList selection = tree->selectionModel()->selectedRows();
-
-    for (int i = 0; i < selection.size(); i++){
-           laliste.append(selection[i].data().toString());
-           std::cout<<selection[i].data().toString().toStdString()<<std::endl;
+    if(isDirModel){
+        for (int i = 0; i < selection.size(); i++){
+            laliste.append(directory->filePath(selection[i]));
+        }
+    }else{
+        for (int i = 0; i < selection.size(); i++){
+            laliste.append(selection[i].data().toString());
+        }
     }
 
     return laliste;

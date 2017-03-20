@@ -36,6 +36,7 @@ class FenetreRechercheAffichageTag : public QWidget {
         QDirModel *directory;
         TagModel *tagmodel;
         QVector<Tag*> *active_tag;
+        bool isDirModel;
 
         QCompleter * completer;
 
@@ -44,6 +45,7 @@ class FenetreRechercheAffichageTag : public QWidget {
 
         void setUpDirTree();
         QStringList filtrerTag();
+
 
 
     public :

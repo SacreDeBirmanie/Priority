@@ -39,8 +39,10 @@ void GestionnaireDesTags::supprimerTag(QString nom_tag){
     if(i != this->lestags.end()){
         //mise a jour de la memoire
         GestionnaireEnregistrementTag::supprimerTag(nom_tag);
+        std::cout<<nom_tag.toStdString()<<std::endl;
         //mise a jour de la liste
         this->supprimerTagListe(nom_tag);
+         std::cout<<nom_tag.toStdString()<<std::endl;
     }
     else{
         ;
@@ -145,11 +147,5 @@ void GestionnaireDesTags::ajouterTagByString(QString nom){
 }
 
 void GestionnaireDesTags::supprimerTagListe(QString nom_tag){
-    QHash<QString, Tag*>::const_iterator i = this->lestags.find(nom_tag);
-    while (i != this->lestags.end() && i.key() == nom_tag){
-
-            this->lestags.erase(i);
-            i++;
-    }
-
+    this->lestags.remove(nom_tag);
 }

@@ -25,14 +25,10 @@ FenetreManagerDeTag::FenetreManagerDeTag(GestionnaireDesTags* gest,QWidget *pare
 
 
 
-
-    ajouterLesTagsALaSelection = new QPushButton("ajouter les tags à la selection");
-    actionsLies->addWidget(ajouterLesTagsALaSelection);
-
-    supprimerLesTagsSelectionne = new QPushButton("supprimer les tags sélectionnés");
+    supprimerLesTagsSelectionne = new QPushButton("Supprimer les tags sélectionnés");
     actionsLies->addWidget(supprimerLesTagsSelectionne);
-
-
+    ajouterLesTagsALaSelection = new QPushButton("Associer le(s) fichier(s) à un tag");
+    actionsLies->addWidget(ajouterLesTagsALaSelection);
 
     espaceTags->setLayout(positionnementTagsDisponibles);
 

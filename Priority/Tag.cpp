@@ -12,7 +12,7 @@ void Tag::setNom(QString n){
     this->nom = n;
 }
 
-void Tag::getFichiers(){
+QStringList Tag::getFichiers(){
     return this->fichiers;
 }
 

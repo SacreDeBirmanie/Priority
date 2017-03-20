@@ -64,6 +64,7 @@ class FenetreRechercheAffichageTag : public QWidget {
         void tout_deselectionner();
         void ouvrirFichier();
         void onCustomContextMenu(const QPoint &point);
+        void enleverTags();
 };
 
 

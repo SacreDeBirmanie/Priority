@@ -106,7 +106,7 @@ QStringList GestionnaireDesTags::listeDesNomTags(){
     return laliste;
 }
 
-QStringList listeDesNomTags(QString nom_fichier){
+QStringList GestionnaireDesTags::listeDesNomTags(QString nom_fichier){
     QHash<QString, Tag*>::const_iterator i = this->lestags.begin();
     QStringList laliste;
     while (i != this->lestags.end()){

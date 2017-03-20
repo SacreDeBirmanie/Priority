@@ -125,7 +125,10 @@ QStringList FenetreManagerDeTag::recupererBoutonsSelectionne(){
 //SLOT
 void FenetreManagerDeTag::creerUnNouveauTag(){
     QString tmp = this->textNomTag->text();
-    this->gestionnaire->creerUnNouveauTag(tmp);
+    if(!this->gestionnaire->creerUnNouveauTag(tmp)){
+        QMessageBox::warning(this,"Priority","Echec : Un tag porte déjà ce nom");
+    }
+
     this->textNomTag->clear();
     this->positionnerTags(4);
 

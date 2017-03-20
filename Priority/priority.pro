@@ -1,22 +1,20 @@
 TEMPLATE = app
 
-QT += qml quick xml
+QT += quick xml
 QT += widgets
 CONFIG += c++11
 
-SOURCES += main.cpp \
-    GestionnaireDesTags.cpp \
-    GestionnaireEnregistrementTag.cpp \
-    Navigation_Repertoire.cpp \
-    Tag.cpp \
-    FenetreManagerDeTag.cpp \
-    FenetreRechercheAffichageTag.cpp \
-    TagModel.cpp \
-    TagItem.cpp \
-    FenetrePrincipale.cpp \
-    FenetreDetaggerFichier.cpp
-
-RESOURCES += qml.qrc
+SOURCES += sources/main.cpp \
+    sources/GestionnaireDesTags.cpp \
+    sources/GestionnaireEnregistrementTag.cpp \
+    sources/Navigation_Repertoire.cpp \
+    sources/Tag.cpp \
+    sources/FenetreManagerDeTag.cpp \
+    sources/FenetreRechercheAffichageTag.cpp \
+    sources/TagModel.cpp \
+    sources/TagItem.cpp \
+    sources/FenetrePrincipale.cpp \
+    sources/FenetreDetaggerFichier.cpp
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
@@ -41,13 +39,13 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    GestionnaireDesTags.hpp \
-    GestionnaireEnregistrementTag.hpp \
-    Navigation_Repertoire.hpp \
-    Tag.hpp \
-    FenetreManagerDeTag.hpp \
-    FenetreRechercheAffichageTag.hpp \
-    TagModel.hpp \
-    TagItem.hpp \
-    FenetrePrincipale.hpp \
-    FenetreDetaggerFichier.hpp
+    headers/GestionnaireDesTags.hpp \
+    headers/GestionnaireEnregistrementTag.hpp \
+    headers/Navigation_Repertoire.hpp \
+    headers/Tag.hpp \
+    headers/FenetreManagerDeTag.hpp \
+    headers/FenetreRechercheAffichageTag.hpp \
+    headers/TagModel.hpp \
+    headers/TagItem.hpp \
+    headers/FenetrePrincipale.hpp \
+    headers/FenetreDetaggerFichier.hpp

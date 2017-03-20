@@ -16,12 +16,11 @@ void GestionnaireDesTags::recupererLesTags(){
         Tag* tmp = new Tag(iterator.next().toLocal8Bit().constData());
         this->lestags.insert(tmp->getNom(), tmp);
         recupererLesFichiers(tmp);
-
     }
 }
 
 void GestionnaireDesTags::creerUnNouveauTag(QString nom_tag){
-    QHash<QString, Tag*>::const_iterator i = this->lestags.find(nom_tag);
+    QHash<QString, Tag*>::iterator i = this->lestags.find(nom_tag);
     if(i == this->lestags.end()){
         //mise a jour dans la mémoire
         GestionnaireEnregistrementTag::creerTag(nom_tag);
@@ -35,7 +34,7 @@ void GestionnaireDesTags::creerUnNouveauTag(QString nom_tag){
 }
 
 void GestionnaireDesTags::supprimerTag(QString nom_tag){
-    QHash<QString, Tag*>::const_iterator i = this->lestags.find(nom_tag);
+    QHash<QString, Tag*>::iterator i = this->lestags.find(nom_tag);
     if(i != this->lestags.end()){
         //mise a jour de la memoire
         GestionnaireEnregistrementTag::supprimerTag(nom_tag);
@@ -50,7 +49,7 @@ void GestionnaireDesTags::supprimerTag(QString nom_tag){
 }
 
 void GestionnaireDesTags::tagger(QString nom_tag, QString chemin_fichier){
-    QHash<QString, Tag*>::const_iterator i = this->lestags.find(nom_tag);
+    QHash<QString, Tag*>::iterator i = this->lestags.find(nom_tag);
     if(i != this->lestags.end()){
         if(i.value()->ajouterFichier(chemin_fichier)){
             GestionnaireEnregistrementTag *memoire = new GestionnaireEnregistrementTag(nom_tag);
@@ -65,12 +64,11 @@ void GestionnaireDesTags::tagger(QString nom_tag, QString chemin_fichier){
 
 void GestionnaireDesTags::tagger(QString nom_tag, QStringList noms_fichiers){
 
-    QHash<QString, Tag*>::const_iterator i = this->lestags.find(nom_tag);
+    QHash<QString, Tag*>::iterator i = this->lestags.find(nom_tag);
     if(i != this->lestags.end()){
         QStringListIterator iterator(noms_fichiers);
         GestionnaireEnregistrementTag *memoire = new GestionnaireEnregistrementTag(nom_tag);
         while (iterator.hasNext()){
-                GestionnaireEnregistrementTag *memoire = new GestionnaireEnregistrementTag(nom_tag);
                 QString tmp = iterator.next().toLocal8Bit().constData();
                 if(i.value()->ajouterFichier(tmp)){
                     memoire->tagger(tmp);
@@ -95,8 +93,27 @@ void GestionnaireDesTags::detagger(QString nom_tag, QString chemin_fichier){
     tag->supprimerFichier(chemin_fichier);
 }
 
+void GestionnaireDesTags::detagger(QString nom_tag, QStringList fichiers){
+
+    QHash<QString, Tag*>::iterator i = this->lestags.find(nom_tag);
+    if(i != this->lestags.end()){
+        QStringListIterator iterator(fichiers);
+        GestionnaireEnregistrementTag *memoire = new GestionnaireEnregistrementTag(nom_tag);
+        while (iterator.hasNext()){
+                QString tmp = iterator.next().toLocal8Bit().constData();
+                if(i.value()->supprimerFichier(tmp)){
+                    memoire->detagger(tmp);
+                }
+                else
+                    ;
+        }
+    }
+    else
+        ;
+}
+
 QStringList GestionnaireDesTags::listeDesNomTags(){
-    QHash<QString, Tag*>::const_iterator i = this->lestags.begin();
+    QHash<QString, Tag*>::iterator i = this->lestags.begin();
     QStringList laliste;
     while (i != this->lestags.end()){
             laliste.append(i.value()->getNom());
@@ -107,11 +124,17 @@ QStringList GestionnaireDesTags::listeDesNomTags(){
 }
 
 QStringList GestionnaireDesTags::listeDesNomTags(QString nom_fichier){
-    QHash<QString, Tag*>::const_iterator i = this->lestags.begin();
+    std::cout<<"aaaaaa"<<std::endl;
+    std::cout<<lestags.size()<<std::endl;
+    QHash<QString, Tag*>::iterator i = lestags.begin();
+    std::cout<<"qqsdqdqsd"<<std::endl;
     QStringList laliste;
-    while (i != this->lestags.end()){
-            if(i.value()->getFichiers().contains(nom_fichier))
-                laliste.append(i.value()->getNom());
+
+    while (i != lestags.end()){
+        std::cout<<"lqqqol"<<std::endl;
+            Tag* tmp = i.value();
+            if(tmp->getFichiers().contains(nom_fichier))
+                laliste.append(tmp->getNom());
             i++;
     }
 

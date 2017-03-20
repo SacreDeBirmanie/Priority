@@ -1,5 +1,6 @@
 #include "FenetreRechercheAffichageTag.hpp"
 #include <iostream>
+#include <QMessageBox>
 
 FenetreRechercheAffichageTag::FenetreRechercheAffichageTag(GestionnaireDesTags* gest,QWidget *parent) : QWidget(parent){
     //QSplitter *splitterMain = (QSplitter*)parent;
@@ -164,8 +165,13 @@ void FenetreRechercheAffichageTag::ouvrirFichier(){
 
 void FenetreRechercheAffichageTag::enleverTags(){
     QStringList fichiers = recupererSelection();
-
-    fenetreDetagger->genererFenetre(fichiers);
+    if(fichiers.size()>0){
+        fenetreDetagger->genererFenetre(fichiers);
+        fenetreDetagger->show();
+    }
+    else{
+        QMessageBox::information(this,"opération impossible :", " vous n'avez selectionné aucun fichier !");
+    }
 
 
 

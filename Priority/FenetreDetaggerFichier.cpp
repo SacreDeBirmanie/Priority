@@ -2,9 +2,13 @@
 #include <QTextLine>
 #include <QVBoxLayout>
 #include <QWidget>
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <iostream>
 
 FenetreDetaggerFichier::FenetreDetaggerFichier(){
     this->setOrientation(Qt::Vertical);
+    layout = new QGridLayout();
 
     revenirFenetrePrincipal = new QPushButton();
     supprimerSelection = new QPushButton();
@@ -12,27 +16,43 @@ FenetreDetaggerFichier::FenetreDetaggerFichier(){
 
 void FenetreDetaggerFichier::genererFenetre(QStringList fich){
     this->fichiers = fich;
-    QStringList::const_iterator i = fichiers.begin();
-    QStringList listeDesTags;
+    QStringList::iterator i = fichiers.begin();
     QWidget* objetTags = new QWidget();
     this->addWidget(objetTags);
+    objetTags->setLayout(layout);
+
+        std::cout<<"lol"<<std::endl;
         while (i != fichiers.end()) {
-            if(!listeDesTags.contains((*i).toLocal8Bit().constData())){
-                QPushButton* tmp = new QPushButton ((*i).toLocal8Bit().constData());
-                tmp->setCheckable(true);
-                tmp->setChecked(false);
-                tmp->setStyleSheet("background-color: white;");
-                connect(tmp,SIGNAL(clicked()),this,SLOT(modificationBoutonTag()));
-                //objetTags->addWidget(tmp);
+            std::cout<<(*i).toLocal8Bit().constData()<<std::endl;
+            QStringList listeDesTags = gestionnaire->listeDesNomTags((*i).toLocal8Bit().constData());
+            std::cout<<"bre"<<std::endl;
+            QStringList::const_iterator j = listeDesTags.begin();
+            while (j != listeDesTags.end()) {
+                std::cout<<"lol"<<std::endl;
+                if(!listeDesTags.contains((*j).toLocal8Bit().constData())){
+                    QPushButton* tmp = new QPushButton ((*j).toLocal8Bit().constData());
+                    listeBoutonsTags.append(tmp);
+                    tmp->setCheckable(true);
+                    tmp->setChecked(false);
+                    tmp->setStyleSheet("background-color: white;");
+                    connect(tmp,SIGNAL(clicked()),this,SLOT(modificationBoutonTag()));
+                    layout->addWidget(tmp);
+
+                }
+                j++;
             }
+            i++;
 
         }
 
         i = fichiers.begin();
+        QGraphicsScene* scene= new QGraphicsScene;
+        QGraphicsView*  vue;
         while (i != fichiers.end()) {
-               /* QTextLine* tmp_line = new QTextLine ((*i).toLocal8Bit().constData());
-                this->addWidget(tmp_line);*/
+                scene->addText((*i).toLocal8Bit().constData());
+                i++;
         }
+        vue = new QGraphicsView(scene,this);
 
 
 }
@@ -41,7 +61,7 @@ void FenetreDetaggerFichier::supprimerLaSelection(){
     QList<QPushButton*>::const_iterator i = listeBoutonsTags.begin();
     while (i != listeBoutonsTags.end()) {
         if((*i)->isChecked())
-            /*gestionnaire->detagger((*i)->accessibleName(),fichiers);*/
+            gestionnaire->detagger((*i)->accessibleName(),fichiers);
         i++;
     }
 }

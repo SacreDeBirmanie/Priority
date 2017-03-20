@@ -17,7 +17,7 @@ public :
     QStringList getFichiers();
     int compterFichiers();
 
-    void supprimerFichier(QString fich);
+    bool supprimerFichier(QString fich);
     bool ajouterFichier(QString fichier);
 };
 

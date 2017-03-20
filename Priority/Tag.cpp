@@ -20,12 +20,15 @@ int Tag::compterFichiers(){
     return this->fichiers.count();
 }
 
-void Tag::supprimerFichier(QString fich){
+bool Tag::supprimerFichier(QString fich){
     int resultat = this->fichiers.indexOf(fich,0);
-    if(resultat >= 0)
+    if(resultat >= 0){
         this->fichiers.removeAt(resultat);
-    else
-        ;
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 bool Tag::ajouterFichier(QString fichier){
     if(!this->fichiers.contains(fichier)){

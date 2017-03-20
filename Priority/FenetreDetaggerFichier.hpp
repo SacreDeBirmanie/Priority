@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QSplitter>
+#include <QGridLayout>
 
 #include "GestionnaireDesTags.hpp"
 
@@ -15,12 +16,12 @@ class FenetreDetaggerFichier : public QSplitter {
         GestionnaireDesTags* gestionnaire;
         QStringList fichiers;
 
+        QGridLayout* layout;
         QList<QPushButton*> listeBoutonsTags;
 
         QPushButton* revenirFenetrePrincipal;
         QPushButton* supprimerSelection;
 
-        void modificationBoutonTag();
 
     public :
         FenetreDetaggerFichier();
@@ -32,5 +33,8 @@ class FenetreDetaggerFichier : public QSplitter {
 
         QPushButton* getRevenirFenetrePrincipal();
         QPushButton* getSupprimerSelection();
+
+    public slots :
+        void modificationBoutonTag();
 };
 #endif // FENETREDETAGGERFICHIER_HPP

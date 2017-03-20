@@ -16,6 +16,7 @@
 #include <QMenu>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QList>
 
 #include "GestionnaireDesTags.hpp"
 #include "FenetreDetaggerFichier.hpp"

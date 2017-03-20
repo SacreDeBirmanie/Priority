@@ -13,15 +13,15 @@ FenetreManagerDeTag::FenetreManagerDeTag(GestionnaireDesTags* gest,QWidget *pare
     espaceTagsEtCreation = new QWidget();
 
     textNomTag = new QLineEdit();
-    boutonCreerTag = new QPushButton("creer le tag");
+    textNomTag->setPlaceholderText("Saississez un nouveau tag");
+    boutonCreerTag = new QPushButton("Créer le tag");
 
     this->addWidget(actionsLies);
     this->addWidget(espaceTagsEtCreation);
 
     espaceTagsEtCreation->setLayout(positionnementBarreAjoutTag);
-    positionnementBarreAjoutTag->addWidget(textNomTag);
-    positionnementBarreAjoutTag->addWidget(boutonCreerTag);
-    positionnementBarreAjoutTag->addWidget(espaceTags);
+    positionnementBarreAjoutTag->addWidget(textNomTag,0,0,1,3);
+    positionnementBarreAjoutTag->addWidget(boutonCreerTag,0,3,1,1);
 
 
 
@@ -37,6 +37,11 @@ FenetreManagerDeTag::FenetreManagerDeTag(GestionnaireDesTags* gest,QWidget *pare
     espaceTags->setLayout(positionnementTagsDisponibles);
 
     positionnerTags(4);
+
+    this->size();
+    QList<int> sizes;
+    sizes << this->size().height()*0.13 << this->size().height()*0.87;
+    this->setSizes(sizes);
 
     connect(supprimerLesTagsSelectionne, SIGNAL(clicked()), this , SLOT(supprimerTags()));
     connect(textNomTag, SIGNAL(returnPressed()), this , SLOT(creerUnNouveauTag()));
@@ -73,9 +78,17 @@ void FenetreManagerDeTag::positionnerTags(int largeurMax){
     QStringList laliste = this->gestionnaire->listeDesNomTags();
     listeBoutonsTags.clear();
 
-    effacerLayout(this->positionnementTagsDisponibles);
+    effacerLayout(this->positionnementBarreAjoutTag);
+    textNomTag = new QLineEdit();
+    textNomTag->setPlaceholderText("Saississez un nouveau tag");
+    boutonCreerTag = new QPushButton("Créer le tag");
 
-    int placementHauteur = 0;
+    connect(textNomTag, SIGNAL(returnPressed()), this , SLOT(creerUnNouveauTag()));
+    connect(boutonCreerTag, SIGNAL(clicked()), this , SLOT(creerUnNouveauTag()));
+
+    positionnementBarreAjoutTag->addWidget(textNomTag,0,0,1,3);
+    positionnementBarreAjoutTag->addWidget(boutonCreerTag,0,3,1,1);
+    int placementHauteur = 5;
     int placementLargeur = 0;
     QStringList::const_iterator i = laliste.begin();
     while (i != laliste.end()) {
@@ -88,7 +101,7 @@ void FenetreManagerDeTag::positionnerTags(int largeurMax){
         tmp->setChecked(false);
         tmp->setStyleSheet("background-color: white;");
         connect(tmp,SIGNAL(clicked()),this,SLOT(modificationBoutonTag()));
-        this->positionnementTagsDisponibles->addWidget(tmp,placementHauteur,placementLargeur);
+        this->positionnementBarreAjoutTag->addWidget(tmp,placementHauteur,placementLargeur);
         if(placementLargeur<largeurMax-1){
             placementLargeur++;
         }

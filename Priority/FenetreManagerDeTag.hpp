@@ -28,7 +28,7 @@ class FenetreManagerDeTag : public QSplitter {
         QLineEdit *textNomTag;
         QList<QPushButton*> listeBoutonsTags;
 
-        QVBoxLayout *positionnementBarreAjoutTag = new QVBoxLayout;
+        QGridLayout *positionnementBarreAjoutTag = new QGridLayout;
         QGridLayout *positionnementTagsDisponibles = new QGridLayout;
 
         void positionnerTags(int largeurMax);

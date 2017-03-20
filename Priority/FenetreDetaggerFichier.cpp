@@ -29,11 +29,9 @@ FenetreDetaggerFichier::FenetreDetaggerFichier(GestionnaireDesTags* gest){
 void FenetreDetaggerFichier::genererFenetre(QStringList fich){
     this->fichiers = fich;
     QStringList::iterator i = fichiers.begin();
-    std::cout<<"ahah"<<std::endl;
     QWidget* objetTags = new QWidget();
     this->addWidget(objetTags);
     objetTags->setLayout(layout);
-
         while (i != fichiers.end()) {
             QStringList liste_tmp = gestionnaire->listeDesNomTags((*i).toLocal8Bit().constData());
             QStringList listeDesTags;
@@ -52,7 +50,7 @@ void FenetreDetaggerFichier::genererFenetre(QStringList fich){
                     tmp->setChecked(false);
                     tmp->setStyleSheet("background-color: white;");
                     connect(tmp,SIGNAL(clicked()),this,SLOT(modificationBoutonTag()));
-                    layout->addWidget(tmp);
+                    layout->addWidget(tmp,placementHauteur,placementLargeur);
 
                     if(placementLargeur<largeurMax-1){
                         placementLargeur++;

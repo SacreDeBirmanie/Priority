@@ -87,6 +87,7 @@ void FenetreDetaggerFichier::supprimerLaSelection(){
             gestionnaire->detagger((*i)->accessibleName(),fichiers);
         i++;
     }
+    emit seFerme();
     this->close();
 }
 
@@ -118,3 +119,4 @@ void FenetreDetaggerFichier::modificationBoutonTag(){
 
 
 }
+

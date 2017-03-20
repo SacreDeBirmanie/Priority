@@ -40,10 +40,8 @@ void GestionnaireDesTags::supprimerTag(QString nom_tag){
     if(i != this->lestags.end()){
         //mise a jour de la memoire
         GestionnaireEnregistrementTag::supprimerTag(nom_tag);
-        std::cout<<nom_tag.toStdString()<<std::endl;
         //mise a jour de la liste
         this->supprimerTagListe(nom_tag);
-         std::cout<<nom_tag.toStdString()<<std::endl;
     }
     else{
         ;
@@ -132,7 +130,6 @@ QStringList GestionnaireDesTags::listeDesNomTags(QString nom_fichier){
             }
              i++;
     }
-    std::cout<<laliste.size()<<std::endl;
     return laliste;
 }
 

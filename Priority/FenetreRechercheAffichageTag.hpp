@@ -69,7 +69,7 @@ class FenetreRechercheAffichageTag : public QWidget {
         void enleverTags();
 
      signals :
-        modificationTags();
+        void modificationTags();
 
 };
 

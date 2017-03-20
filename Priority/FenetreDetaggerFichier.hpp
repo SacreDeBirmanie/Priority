@@ -38,5 +38,9 @@ class FenetreDetaggerFichier : public QSplitter {
     public slots :
         void modificationBoutonTag();
         void supprimerLaSelection();
+
+    signals :
+        void seFerme();
+
 };
 #endif // FENETREDETAGGERFICHIER_HPP

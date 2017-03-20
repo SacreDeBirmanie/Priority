@@ -14,7 +14,8 @@ FenetrePrincipale::FenetrePrincipale(){
 
     fenetre.setFrameStyle(QFrame::Box);
     QObject::connect(fenetreMDT->getAjouterLesTagsALaSelection(), SIGNAL(clicked()), this , SLOT(ajouterTagsSelection()));
-    //QObject::connect(fenetreRAT->getTreeView(), SIGNAL(clicked()), this , SLOT(ajouterTagsSelection()));
+    QObject::connect(fenetreRAT, SIGNAL(modificationTags()), this , SLOT(updateMDT()));
+
 
     fenetre.showMaximized();
 
@@ -36,4 +37,8 @@ void FenetrePrincipale::ajouterTagsSelection(){
 
     fenetreMDT->update();
 
+}
+
+void FenetrePrincipale::updateMDT(){
+    fenetreMDT->update();
 }

@@ -26,6 +26,7 @@ class FenetrePrincipale : public QWidget{
 
     public slots :
         void ajouterTagsSelection();
+        void updateMDT();
 
 };
 
